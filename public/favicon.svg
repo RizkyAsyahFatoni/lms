@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="50%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="18" fill="url(#favGradient)" />
+  
+  <!-- Stylized "1" -->
+  <path d="M26 23L33 16H38V48H31V25L26 27V23Z" fill="#FFFFFF" />
+  
+  <!-- Growth Arc -->
+  <path d="M43 21C48 24 51 28 51 34C51 40 48 44 43 47" stroke="#CCFBF1" stroke-width="4" stroke-linecap="round" />
+  <circle cx="48" cy="21" r="3" fill="#38BDF8" />
+</svg>

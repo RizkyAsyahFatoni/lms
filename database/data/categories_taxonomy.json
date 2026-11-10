@@ -1,0 +1,269 @@
+[
+  {
+    "name": "Mandatory & Pelatihan Wajib",
+    "slug": "mandatory-pelatihan-wajib",
+    "icon": "shield",
+    "badge_color": "rose",
+    "sub_categories": [
+      {
+        "name": "Pelatihan Kepemimpinan Nasional (PKN)",
+        "slug": "pelatihan-kepemimpinan-nasional-pkn",
+        "tags": "PKN Tingkat II, Kepemimpinan Strategis, Reformasi Tematik, Proyek Perubahan"
+      },
+      {
+        "name": "Pelatihan Kepemimpinan Administrator (PKA)",
+        "slug": "pelatihan-kepemimpinan-administrator-pka",
+        "tags": "PKA, Kepemimpinan Kinerja, Manajemen Kinerja Organisasi, Aksi Perubahan Kinerja"
+      },
+      {
+        "name": "Pelatihan Kepemimpinan Pengawas (PKP)",
+        "slug": "pelatihan-kepemimpinan-pengawas-pkp",
+        "tags": "PKP, Kepemimpinan Pelayanan, Pengendalian Mutu Layanan, Aksi Perubahan Pelayanan"
+      },
+      {
+        "name": "Orientasi & Pelatihan Dasar (Latsar)",
+        "slug": "orientasi-pelatihan-dasar-latsar",
+        "tags": "Latsar CPNS, Orientasi PPPK, Bela Negara, Core Values BerAKHLAK, Bangga Melayani Bangsa"
+      },
+      {
+        "name": "Disiplin, Etika & Integritas ASN",
+        "slug": "disiplin-etika-integritas-asn",
+        "tags": "Disiplin ASN (PP 94/2021), Kode Etik Birokrasi, Netralitas ASN, Pengendalian Gratifikasi, WBS, LHKPN / LHKASN"
+      }
+    ]
+  },
+  {
+    "name": "Kompetensi Manajerial",
+    "slug": "kompetensi-manajerial",
+    "icon": "users",
+    "badge_color": "indigo",
+    "sub_categories": [
+      {
+        "name": "Integritas",
+        "slug": "integritas",
+        "tags": "Kejujuran Institusi, Etika Profesi, Anti-Korupsi, Transparansi Layanan"
+      },
+      {
+        "name": "Kerja Sama",
+        "slug": "kerja-sama",
+        "tags": "Kolaborasi Tim, Negosiasi Internal, Sinergi Antar-OPD, Team Building"
+      },
+      {
+        "name": "Komunikasi",
+        "slug": "komunikasi",
+        "tags": "Public Speaking, Komunikasi Krisis, Storytelling Kebijakan, Teknik Paparan"
+      },
+      {
+        "name": "Orientasi pada Hasil",
+        "slug": "orientasi-pada-hasil",
+        "tags": "Target SMART, Efisiensi Anggaran, Manajemen Waktu Kerja, Monitoring Evaluasi"
+      },
+      {
+        "name": "Pelayanan Publik",
+        "slug": "pelayanan-publik",
+        "tags": "Standar Pelayanan Minimal (SPM), Hospitality Birokrasi, Layanan Inklusif, Penanganan Komplain"
+      },
+      {
+        "name": "Pengembangan Diri & Orang Lain (PDOL)",
+        "slug": "pengembangan-diri-orang-lain-pdol",
+        "tags": "Coaching & Mentoring, Rencana Pengembangan Diri, Konseling Karyawan"
+      },
+      {
+        "name": "Mengelola Perubahan",
+        "slug": "mengelola-perubahan",
+        "tags": "Manajemen Resistensi, Inovasi Sektor Publik, Rekayasa Proses Bisnis (BPR)"
+      },
+      {
+        "name": "Pengambilan Keputusan",
+        "slug": "pengambilan-keputusan",
+        "tags": "Evidence-Based Policy, Analisis Risiko, Mitigasi Masalah, Problem Solving"
+      }
+    ]
+  },
+  {
+    "name": "Kompetensi Sosial Kultural",
+    "slug": "kompetensi-sosial-kultural",
+    "icon": "globe",
+    "badge_color": "teal",
+    "sub_categories": [
+      {
+        "name": "Perekat Bangsa & Kebangsaan",
+        "slug": "perekat-bangsa-kebangsaan",
+        "tags": "Wawasan Kebangsaan, Pemantapan Pancasila & UUD 1945, Bela Negara"
+      },
+      {
+        "name": "Moderasi & Resolusi Sosial",
+        "slug": "moderasi-resolusi-sosial",
+        "tags": "Moderasi Beragama, Toleransi Keberagaman, Resolusi Konflik, Deteksi Dini Kerawanan"
+      },
+      {
+        "name": "Inklusivitas & Kearifan Lokal",
+        "slug": "inklusivitas-kearifan-lokal",
+        "tags": "Pelayanan Ramah Kelompok Rentan, Ramah Disabilitas, Pengarusutamaan Gender (PUG), Adat & Norma Lokal"
+      }
+    ]
+  },
+  {
+    "name": "Kompetensi Teknis Umum",
+    "slug": "kompetensi-teknis-umum",
+    "icon": "briefcase",
+    "badge_color": "blue",
+    "sub_categories": [
+      {
+        "name": "Pengadaan Barang/Jasa (PBJ)",
+        "slug": "pengadaan-barang-jasa-pbj",
+        "tags": "PBJ Level 1, Swakelola, E-Katalog & Bela Pengadaan, Manajemen Kontrak"
+      },
+      {
+        "name": "Keuangan & Aset Daerah",
+        "slug": "keuangan-aset-daerah",
+        "tags": "SIPD-RI Penatausahaan, RKA/DPA, Kasda, Akuntansi Keuangan Daerah, Pengelolaan BMD/Aset"
+      },
+      {
+        "name": "Perencanaan & Akuntabilitas Kinerja",
+        "slug": "perencanaan-akuntabilitas-kinerja",
+        "tags": "Renstra & Renja OPD, Evaluasi RKPD, Penyusunan SAKIP, LAKIP, Cascading Kinerja"
+      },
+      {
+        "name": "Administrasi & Kearsipan",
+        "slug": "administrasi-kearsipan",
+        "tags": "Tata Naskah Dinas, Aplikasi SRIKANDI, Kearsipan Dinamis, Pengelolaan Persuratan"
+      },
+      {
+        "name": "Kepegawaian & Tata Laksana",
+        "slug": "kepegawaian-tata-laksana",
+        "tags": "SKP PermenPAN 6/2022, SIASN & MyASN, Analisis Jabatan (Anjab/ABK), Dokumen SOP-AP"
+      }
+    ]
+  },
+  {
+    "name": "Kompetensi Teknis Digital & SPBE",
+    "slug": "kompetensi-teknis-digital-spbe",
+    "icon": "cpu",
+    "badge_color": "cyan",
+    "sub_categories": [
+      {
+        "name": "Keamanan Informasi & Siber",
+        "slug": "keamanan-informasi-siber",
+        "tags": "Literasi Keamanan Siber, Tata Kelola Sandi, Penanganan Insiden CSIRT, Anti-Phishing ASN"
+      },
+      {
+        "name": "Tata Kelola Data & Regulasi Digital",
+        "slug": "tata-kelola-data-regulasi-digital",
+        "tags": "Arsitektur SPBE, Interoperabilitas Sistem, Satu Data Indonesia (SDI), UU Perlindungan Data Pribadi"
+      },
+      {
+        "name": "Literasi Digital Praktis",
+        "slug": "literasi-digital-praktis",
+        "tags": "Pemanfaatan AI Administrasi, Visualisasi Data & Dashboard, Desain Presentasi Kedinasan"
+      }
+    ]
+  },
+  {
+    "name": "Kompetensi Fungsional",
+    "slug": "kompetensi-fungsional",
+    "icon": "award",
+    "badge_color": "purple",
+    "sub_categories": [
+      {
+        "name": "Pembinaan Jabatan Fungsional",
+        "slug": "pembinaan-jabatan-fungsional",
+        "tags": "Uji Kompetensi JF, Konversi Predikat Kinerja (PermenPAN 1/2023), Karya Tulis Ilmiah ASN"
+      },
+      {
+        "name": "JF Bidang Kebijakan & Manajemen",
+        "slug": "jf-bidang-kebijakan-manajemen",
+        "tags": "Analis Kebijakan, Perencana, Analis SDM Aparatur, Pranata Komputer"
+      },
+      {
+        "name": "JF Bidang Pengawasan & Hukum",
+        "slug": "jf-bidang-pengawasan-hukum",
+        "tags": "Auditor Inspektorat, P2UPD, Analis Hukum, Perancang Peraturan Perundang-undangan"
+      },
+      {
+        "name": "JF Teknis Wilayah",
+        "slug": "jf-teknis-wilayah",
+        "tags": "Pamong Praja (Satpol PP), Pengawas Lingkungan Hidup, Medik Veteriner, Penyuluh Pertanian"
+      }
+    ]
+  },
+  {
+    "name": "Teknis Substantif Daerah",
+    "slug": "teknis-substantif-daerah",
+    "icon": "building",
+    "badge_color": "emerald",
+    "sub_categories": [
+      {
+        "name": "Bidang Kesehatan & Sosial",
+        "slug": "bidang-kesehatan-sosial",
+        "tags": "Manajemen Puskesmas, Teknis Penurunan Stunting, Surveilans Epidemiologi, Verifikasi DTKS, Siaga Bencana BPBD"
+      },
+      {
+        "name": "Bidang Pendidikan",
+        "slug": "bidang-pendidikan",
+        "tags": "Tata Kelola BOS Daerah, Penguatan Mutu Tenaga Pendidik, Akreditasi Satuan Pendidikan"
+      },
+      {
+        "name": "Bidang PU & Infrastruktur",
+        "slug": "bidang-pu-infrastruktur",
+        "tags": "Penyusunan RDTR/RTRW, Persetujuan Bangunan Gedung (PBG), Manajemen Pemeliharaan Jalan, Drainase"
+      },
+      {
+        "name": "Bidang Kependudukan & Layanan",
+        "slug": "bidang-kependudukan-layanan",
+        "tags": "SIAK Terpusat, Layanan Jemput Bola Adminduk, Standar Layanan Front-Office"
+      },
+      {
+        "name": "Bidang Ekonomi & Investasi",
+        "slug": "bidang-ekonomi-investasi",
+        "tags": "Penyelenggaraan OSS-RBA, Pengawasan Kemitraan UMKM, Manajemen Pasar Tradisional"
+      }
+    ]
+  },
+  {
+    "name": "Pemerintahan Desa & Wilayah",
+    "slug": "pemerintahan-desa-wilayah",
+    "icon": "map-pin",
+    "badge_color": "amber",
+    "sub_categories": [
+      {
+        "name": "Pengelolaan Keuangan & Aset Desa",
+        "slug": "pengelolaan-keuangan-aset-desa",
+        "tags": "Aplikasi Siskeudes, Pengelolaan Sipades, Tata Cara Pencairan Dana Desa"
+      },
+      {
+        "name": "Administrasi Desa & Kewilayahan",
+        "slug": "administrasi-desa-kewilayahan",
+        "tags": "Perencanaan RPJMDes/APBDes, Pembinaan BPD & RT/RW, Pelayanan Paten Kecamatan"
+      },
+      {
+        "name": "Kelembagaan & Ekonomi Desa",
+        "slug": "kelembagaan-ekonomi-desa",
+        "tags": "Tata Kelola BUMDes, Inovasi Produk Desa, Akuntabilitas Lembaga Adat/Kemasyarakatan"
+      }
+    ]
+  },
+  {
+    "name": "Muatan Kebijakan & Regulasi Lokal",
+    "slug": "muatan-kebijakan-regulasi-lokal",
+    "icon": "book-open",
+    "badge_color": "slate",
+    "sub_categories": [
+      {
+        "name": "Dokumen Perencanaan Kabupaten",
+        "slug": "dokumen-perencanaan-kabupaten",
+        "tags": "Visi Misi Bupati, Target Prioritas RPJMD, Indikator Kinerja Utama (IKU) Daerah"
+      },
+      {
+        "name": "Produk Hukum Daerah",
+        "slug": "produk-hukum-daerah",
+        "tags": "Perda RTRW, Perda Pajak & Retribusi Daerah (UU HKPD), Perbup Disiplin Kerja"
+      },
+      {
+        "name": "Kearifan Budaya Kabupaten",
+        "slug": "kearifan-budaya-kabupaten",
+        "tags": "Profil Potensi Unggulan Daerah, Sejarah Kabupaten, Protokol Budaya Lokal"
+      }
+    ]
+  }
+]

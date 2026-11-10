@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneLearning — Proposal Sistem Pembelajaran Mandiri & Terpadu (Light Edition)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #f1f5f9;
+            --bg-page: #ffffff;
+            --bg-surface: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-subtle: #f8fafc;
+            --border-glass: rgba(226, 232, 240, 0.95);
+            --border-glass-strong: #cbd5e1;
+            
+            --brand-primary: #0d9488;
+            --brand-dark: #0f766e;
+            --brand-light: #ccfbf1;
+            --brand-emerald: #059669;
+            --brand-cyan: #0284c7;
+            --brand-indigo: #4f46e5;
+            --brand-amber: #d97706;
+            
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-void);
+            color: var(--slate-800);
+            font-size: 13px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Screen Canvas Wrapper */
+        .proposal-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+            background: radial-gradient(circle at 50% 0%, #e2e8f0 0%, #cbd5e1 100%);
+            min-height: 100vh;
+        }
+
+        /* A4 Page Architecture */
+        .page-a4 {
+            width: 210mm;
+            height: 297mm;
+            min-height: 297mm;
+            max-height: 297mm;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 28px;
+            padding: 18mm 18mm 16mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+
+        /* Subtle Ambient Grid Background */
+        .page-a4::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 90% 8%, rgba(13, 148, 136, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 10% 92%, rgba(79, 70, 229, 0.03) 0%, transparent 50%),
+                linear-gradient(rgba(15, 23, 42, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .page-inner {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Top Page Header Bar */
+        .page-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--slate-200);
+            margin-bottom: 12px;
+        }
+
+        .page-brand-mini {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-cyan));
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(13, 148, 136, 0.4);
+        }
+
+        .brand-name-mini {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--slate-900);
+        }
+
+        .brand-name-mini span {
+            color: var(--slate-400);
+            font-size: 9.5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .page-section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--brand-dark);
+            background: var(--brand-light);
+            border: 1px solid #99f6e4;
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        /* Bottom Footer Bar */
+        .page-footer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+            border-top: 1px solid var(--slate-200);
+            margin-top: 8px;
+            font-size: 9.5px;
+            color: var(--slate-400);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .footer-secure-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-secure-tag::before {
+            content: '●';
+            color: var(--brand-emerald);
+            font-size: 8px;
+        }
+
+        /* Typography */
+        .section-headline {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--slate-900);
+            line-height: 1.25;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-desc {
+            font-size: 12.5px;
+            color: var(--slate-600);
+            margin-top: 4px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Glass Cards (Light Mode SaaS Style) */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 12px 14px;
+            position: relative;
+            box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+        }
+
+        .glass-panel-highlight {
+            border-color: #99f6e4;
+            background: linear-gradient(145deg, #f0fdfa 0%, #ffffff 100%);
+        }
+
+        /* Window Mockup Frame: FULL WIDTH ATAS-BAWAH (NO CROP) */
+        .window-frame-full {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 11px;
+            width: 100%;
+        }
+
+        .window-header {
+            height: 24px;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .window-title {
+            margin-left: 8px;
+            font-size: 9px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--slate-500);
+            font-weight: 500;
+        }
+
+        .window-body {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .window-img-full {
+            width: 100%;
+            height: auto;
+            max-height: 255px;
+            object-fit: contain;
+            display: block;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Badges & Chips */
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2.5px 8px;
+            border-radius: 100px;
+            font-size: 9.5px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .pill-teal {
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            color: #0f766e;
+        }
+
+        .pill-emerald {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #047857;
+        }
+
+        .pill-indigo {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            color: #4338ca;
+        }
+
+        .pill-amber {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #b45309;
+        }
+
+        /* GRID UTILITIES */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 9px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        /* Feature Item Cards */
+        .feat-item {
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .feat-icon {
+            font-size: 18px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .feat-title {
+            font-size: 12.5px;
+            font-weight: 750;
+            color: var(--slate-900);
+            margin-bottom: 3px;
+            line-height: 1.35;
+        }
+
+        .feat-desc {
+            font-size: 11px;
+            color: var(--slate-600);
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* Horizontal Feature Row: icon left, text right */
+        .feat-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            margin-bottom: 9px;
+        }
+
+        .feat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .feat-row .feat-row-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feat-row .feat-row-title {
+            font-size: 12.5px;
+            font-weight: 750;
+            color: var(--slate-900);
+            margin-bottom: 3px;
+        }
+
+        .feat-row .feat-row-desc {
+            font-size: 11px;
+            color: var(--slate-600);
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* ASN TAGS */
+        .asn-tags-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-top: 6px;
+        }
+
+        .asn-tag {
+            padding: 5px 8px;
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            border-radius: 6px;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .asn-tag-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--brand-primary);
+            flex-shrink: 0;
+        }
+
+        /* ================= COVER (PAGE 1) - FUTURISTIC DARK-TEAL SUITE ================= */
+        .page-a4.page-cover {
+            background: linear-gradient(145deg, #07131e 0%, #08212c 35%, #092e3a 70%, #061622 100%);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            box-shadow: 0 25px 60px -12px rgba(2, 6, 23, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.2);
+            color: #ffffff;
+            position: relative;
+        }
+
+        .page-a4.page-cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 85% 12%, rgba(45, 212, 191, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 12% 88%, rgba(14, 165, 233, 0.22) 0%, transparent 50%),
+                radial-gradient(circle at 50% 38%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .page-cover .page-top-bar {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .page-cover .brand-name-mini {
+            color: #ffffff;
+        }
+
+        .page-cover .brand-name-mini span {
+            color: #5eead4;
+        }
+
+        .page-cover .page-section-tag {
+            background: rgba(13, 148, 136, 0.22);
+            border: 1px solid rgba(94, 234, 212, 0.45);
+            color: #5eead4;
+            box-shadow: 0 0 15px rgba(13, 148, 136, 0.25);
+        }
+
+        .page-cover .cover-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 6px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(94, 234, 212, 0.35);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #5eead4;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            box-shadow: 0 0 20px rgba(13, 148, 136, 0.2);
+        }
+
+        .cover-badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .cover-logo-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .cover-logo-glow {
+            position: absolute;
+            inset: -8px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.4) 0%, transparent 70%);
+            border-radius: 30px;
+            filter: blur(10px);
+            z-index: 0;
+        }
+
+        .cover-logo-box {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0284c7 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 0 35px rgba(20, 184, 166, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            position: relative;
+            z-index: 1;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.04em;
+        }
+
+        .cover-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 3px;
+            background: linear-gradient(135deg, #ffffff 15%, #ccfbf1 50%, #5eead4 85%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 16px rgba(45, 212, 191, 0.25));
+        }
+
+        .cover-author {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .cover-author span {
+            color: #5eead4;
+            font-weight: 700;
+        }
+
+        .cover-tagline-box {
+            max-width: 630px;
+            margin: 0 auto 16px;
+        }
+
+        .cover-headline-main {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+        }
+
+        .cover-tagline-text {
+            font-size: 12px;
+            color: rgba(226, 232, 240, 0.85);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .cover-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .page-cover .kpi-card {
+            background: rgba(255, 255, 255, 0.045);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 12px;
+            padding: 11px 14px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
+        }
+
+        .page-cover .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3.5px;
+            height: 100%;
+            background: linear-gradient(180deg, #14b8a6, #0284c7);
+        }
+
+        .page-cover .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        }
+
+        .kpi-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .page-cover .kpi-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 19px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .kpi-unit {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #5eead4;
+        }
+
+        .kpi-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 100px;
+            background: rgba(20, 184, 166, 0.18);
+            border: 1px solid rgba(94, 234, 212, 0.4);
+            color: #5eead4;
+            text-transform: uppercase;
+        }
+
+        .kpi-chip.chip-emerald {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(110, 231, 183, 0.4);
+            color: #6ee7b7;
+        }
+
+        .kpi-chip.chip-cyan {
+            background: rgba(2, 132, 199, 0.18);
+            border-color: rgba(125, 211, 252, 0.4);
+            color: #7dd3fc;
+        }
+
+        .kpi-chip.chip-amber {
+            background: rgba(217, 119, 6, 0.18);
+            border-color: rgba(253, 230, 138, 0.4);
+            color: #fde68a;
+        }
+
+        .page-cover .kpi-label {
+            font-size: 11.5px;
+            font-weight: 750;
+            color: #ffffff;
+            margin: 3px 0 2px;
+        }
+
+        .page-cover .kpi-sub {
+            font-size: 10px;
+            color: rgba(203, 213, 225, 0.8);
+            line-height: 1.45;
+        }
+
+        /* Pill Feature Strip on Cover */
+        .cover-features-strip {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            width: 100%;
+            margin-bottom: 11px;
+            flex-wrap: wrap;
+        }
+
+        .cover-feat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3.5px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            font-size: 9.5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: rgba(241, 245, 249, 0.85);
+        }
+
+        .cover-feat-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #2dd4bf;
+            box-shadow: 0 0 6px #2dd4bf;
+        }
+
+        /* Metadata Console Strip on Cover */
+        .page-cover .cover-metadata-bar {
+            width: 100%;
+            padding: 7px 12px;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .cover-meta-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .cover-meta-lbl {
+            font-size: 8px;
+            color: rgba(148, 163, 184, 0.85);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1px;
+        }
+
+        .cover-meta-val {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #5eead4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .page-cover .page-footer-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(148, 163, 184, 0.7);
+        }
+
+        /* Comparison Table */
+        .v2-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 10.5px;
+            margin-top: 8px;
+        }
+
+        .v2-table th {
+            background: var(--slate-100);
+            padding: 7px 10px;
+            text-align: left;
+            font-weight: 800;
+            color: var(--slate-900);
+            border-bottom: 1px solid var(--slate-200);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10.5px;
+        }
+
+        .v2-table td {
+            padding: 6.5px 10px;
+            border-bottom: 1px solid var(--slate-100);
+            color: var(--slate-700);
+        }
+
+        .v2-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .v2-table tr.highlight-row td {
+            background: #f0fdfa;
+            color: var(--brand-dark);
+            font-weight: 700;
+        }
+
+        .check-yes { color: #15803d; font-weight: 800; }
+        .check-no { color: #dc2626; font-weight: 600; }
+        .check-plugin { color: #d97706; font-weight: 600; }
+
+        /* Pricing Cards */
+        .pricing-v2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 8px 0;
+        }
+
+        .pricing-v2-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            padding: 14px 16px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .pricing-v2-card.featured {
+            border: 2px solid var(--brand-primary);
+            background: linear-gradient(165deg, #f0fdfa 0%, #ffffff 100%);
+            box-shadow: 0 8px 20px -4px rgba(13, 148, 136, 0.12);
+        }
+
+        .pricing-top-tag {
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #0d9488, #14b8a6);
+            color: white;
+            font-size: 9px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2.5px 11px;
+            border-radius: 100px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px rgba(13, 148, 136, 0.3);
+            white-space: nowrap;
+        }
+
+        .pricing-plan-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: var(--slate-900);
+        }
+
+        .pricing-price-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin: 2px 0;
+        }
+
+        .pricing-price-tag span {
+            font-size: 10.5px;
+            font-weight: 400;
+            color: var(--slate-500);
+        }
+
+        .pricing-desc-text {
+            font-size: 10px;
+            color: var(--slate-600);
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .pricing-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 10px;
+        }
+
+        .pricing-features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            color: var(--slate-700);
+        }
+
+        .pricing-features-list li::before {
+            content: '✓';
+            color: var(--brand-primary);
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .pricing-features-list li.highlight-item {
+            color: var(--brand-dark);
+            font-weight: 700;
+            background: #f0fdfa;
+            padding: 2px 5px;
+            border-radius: 4px;
+            border-left: 2px solid var(--brand-primary);
+        }
+
+        /* Tech Grid Chips */
+        .tech-chips-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 7px;
+            margin-bottom: 10px;
+        }
+
+        .tech-chip {
+            padding: 7px 9px;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .tech-chip-icon { font-size: 16px; margin-bottom: 2px; }
+        .tech-chip-name { font-weight: 800; font-size: 10.5px; color: var(--slate-900); font-family: 'Space Grotesk', sans-serif; }
+        .tech-chip-role { font-size: 8.5px; color: var(--slate-500); font-family: 'JetBrains Mono', monospace; }
+
+        /* CONTACT CARD */
+        .contact-v2-card {
+            background: linear-gradient(135deg, #0f172a 0%, #0d3349 50%, #0f766e 100%);
+            border-radius: 14px;
+            padding: 18px 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.12);
+            margin-bottom: 10px;
+        }
+
+        .contact-v2-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #34d399, #5eead4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1px;
+        }
+
+        .contact-v2-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            margin-bottom: 3px;
+        }
+
+        .contact-v2-tagline {
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 14px;
+        }
+
+        .contact-v2-items {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .contact-v2-label {
+            font-size: 8.5px;
+            color: rgba(255, 255, 255, 0.55);
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1px;
+        }
+
+        .contact-v2-val {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #5eead4;
+        }
+
+        .contact-v2-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--brand-primary);
+            color: white;
+            font-weight: 800;
+            font-size: 11.5px;
+            padding: 7px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+        }
+
+        /* ---------------- PRINT READY A4 RULES ---------------- */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            body {
+                background: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .proposal-container {
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            .page-a4 {
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-height: 297mm !important;
+                page-break-before: always !important;
+                break-before: page !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+                padding: 16mm 16mm 14mm !important;
+                border-radius: 0 !important;
+            }
+
+            .page-a4:first-child {
+                page-break-before: avoid !important;
+                break-before: avoid !important;
+            }
+
+            .page-a4.page-cover {
+                background: linear-gradient(145deg, #07131e 0%, #08212c 35%, #092e3a 70%, #061622 100%) !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .window-img-full {
+                max-height: 255px !important;
+                object-fit: contain !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="proposal-container">
+
+    <!-- ================= PAGE 1: COVER ================= -->
+    <div class="page-a4 page-cover">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>PLATFORM PROPOSAL 2026</span></div>
+                </div>
+                <div class="page-section-tag">Dokumen Proposal Resmi</div>
+            </div>
+
+            <div class="cover-hero">
+                <div class="cover-badge-pill">
+                    <span class="cover-badge-dot"></span>
+                    <span>Sistem Pembelajaran Digital Terpadu ASN 2026</span>
+                </div>
+
+                <div class="cover-logo-wrapper">
+                    <div class="cover-logo-glow"></div>
+                    <div class="cover-logo-box">1L</div>
+                </div>
+
+                <h1 class="cover-title">OneLearning</h1>
+                <div class="cover-author">Dikembangkan oleh <span>People Development Consulting</span></div>
+
+                <div class="cover-tagline-box">
+                    <div class="cover-headline-main">
+                        Sistem Pembelajaran Mandiri &amp; Terpadu untuk Peningkatan Kompetensi Pegawai
+                    </div>
+                    <p class="cover-tagline-text">
+                        Solusi terintegrasi untuk menyelenggarakan pelatihan daring (e-course &amp; live webinar) maupun tatap muka (luring), pencatatan jam belajar otomatis menuju target 20 JP/tahun, pengakuan sertifikat luar instansi, presensi berstempel waktu, dan penerbitan sertifikat digital berkode QR.
+                    </p>
+                </div>
+
+                <!-- 4 Futuristic KPI Cards -->
+                <div class="cover-kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-num">9 <span class="kpi-unit">Materi Siap Pakai</span></div>
+                            <span class="kpi-chip">Level 1 ASN</span>
+                        </div>
+                        <div class="kpi-label">Kompetensi Dasar ASN Langsung Aktif</div>
+                        <div class="kpi-sub">Modul lengkap: Integritas, Kerjasama, Komunikasi, Pelayanan Publik, hingga Perekat Bangsa siap diakses pegawai.</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-num">20+ <span class="kpi-unit">JP / Tahun</span></div>
+                            <span class="kpi-chip chip-emerald">Otomatis</span>
+                        </div>
+                        <div class="kpi-label">Pelacakan Jam Belajar &amp; Akumulasi</div>
+                        <div class="kpi-sub">Penghitungan jam pelajaran internal dan pengakuan sertifikat eksternal terekam permanen dalam riwayat tahunan.</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-num">100% <span class="kpi-unit">Validasi QR</span></div>
+                            <span class="kpi-chip chip-cyan">Anti-Pemalsuan</span>
+                        </div>
+                        <div class="kpi-label">Sertifikat Digital Otomatis PDF</div>
+                        <div class="kpi-sub">Penerbitan otomatis seusai pelatihan, bebas unduh PDF resmi, dan verifikasi keaslian instan lewat kamera smartphone.</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-num">100% <span class="kpi-unit">Mandiri</span></div>
+                            <span class="kpi-chip chip-amber">Diskominfo</span>
+                        </div>
+                        <div class="kpi-label">Kendali Penuh di Server Daerah</div>
+                        <div class="kpi-sub">Dapat diinstal di server Pemda tanpa biaya sewa berkelanjutan, atau gunakan paket hosting VPS &amp; Domain resmi tahun pertama.</div>
+                    </div>
+                </div>
+
+                <!-- Capabilities Strip -->
+                <div class="cover-features-strip">
+                    <div class="cover-feat-pill"><span class="cover-feat-dot"></span>Multi-Format Pembelajaran (Video, PDF, Teks, Quiz &amp; Tugas)</div>
+                    <div class="cover-feat-pill"><span class="cover-feat-dot"></span>Full Kustomisasi (Logo, Nama &amp; Domain Resmi Daerah)</div>
+                    <div class="cover-feat-pill"><span class="cover-feat-dot"></span>Pengakuan Sertifikat Luar Instansi ke JP</div>
+                </div>
+
+                <!-- Metadata Console Strip -->
+                <div class="cover-metadata-bar">
+                    <div class="cover-meta-item"><span class="cover-meta-lbl">KODE DOKUMEN</span><span class="cover-meta-val">PROPOSAL-LMS-2026-V2</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-lbl">KLASIFIKASI</span><span class="cover-meta-val">PENAWARAN RESMI TEKNIS</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-lbl">SASARAN</span><span class="cover-meta-val">PEMERINTAH DAERAH &amp; BPSDM</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-lbl">STANDAR KEPEGAWAIAN</span><span class="cover-meta-val">MINIMAL 20 JP TAHUNAN</span></div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">OneLearning Ecosystem • People Development Consulting</div>
+                <div>Page 01 of 14 • Proposal Resmi</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: APA ITU ONELEARNING ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>PENGANTAR SISTEM</span></div>
+                </div>
+                <div class="page-section-tag">01 / Apa itu OneLearning?</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Apa itu OneLearning?</h2>
+                    <p class="section-desc">OneLearning adalah sebuah sistem pembelajaran digital terpadu yang dirancang khusus untuk kebutuhan instansi pemerintah daerah dan lembaga publik di Indonesia. Sistem ini menyatukan seluruh program pelatihan pegawai — baik yang bersifat daring (online) maupun tatap muka (luring) — ke dalam satu portal tunggal yang mudah diakses dan dikelola. Tidak seperti platform e-learning umum yang ditujukan untuk dunia pendidikan atau korporasi swasta, OneLearning sejak awal dibangun agar sesuai dengan alur kerja kedinasan, regulasi kepegawaian nasional, dan kebutuhan pencatatan Jam Pelajaran (JP) minimal 20 JP per tahun bagi setiap aparatur sipil negara.</p>
+                </div>
+
+                <!-- Box Full Kustomisasi Identitas -->
+                <div class="glass-panel glass-panel-highlight" style="margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:5px;">
+                        <div>
+                            <span class="pill-badge pill-teal" style="margin-bottom:4px;">Full Kustomisasi Identitas</span>
+                            <h3 style="font-size:14px; font-weight:800; color:var(--slate-900);">Aplikasi LMS Disesuaikan Penuh dengan Identitas Lembaga / Instansi Anda</h3>
+                        </div>
+                        <div style="font-size:20px;">🏛️</div>
+                    </div>
+                    <p style="font-size:11.5px; color:var(--slate-700); line-height:1.55; text-align:justify;">
+                        Aplikasi LMS OneLearning dapat disesuaikan sepenuhnya (Full Kustomisasi) dengan identitas resmi lembaga atau instansi Anda. Seluruh tampilan antarmuka diselaraskan mulai dari nama platform, logo resmi pemda/dinas/lembaga, skema warna tema, alamat website resmi (seperti <em>lms.namadaerah.go.id</em>), hingga format kop surat dan tanda tangan pada lembar sertifikat kelulusan.
+                    </p>
+                    <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
+                        <span class="pill-badge pill-indigo">Logo Pemda / Instansi</span>
+                        <span class="pill-badge pill-teal">Warna Tema Daerah</span>
+                        <span class="pill-badge pill-emerald">Domain Resmi .go.id</span>
+                        <span class="pill-badge pill-amber">Template Sertifikat Resmi</span>
+                    </div>
+                </div>
+
+                <!-- 4 Core Pillars — Vertical Stacked Rows -->
+                <div class="feat-row">
+                    <div class="feat-row-icon">📋</div>
+                    <div>
+                        <div class="feat-row-title">Sesuai Ketentuan Nasional</div>
+                        <div class="feat-row-desc">Format Jam Pelajaran (JP), bobot materi, dan rekapitulasi diselaraskan dengan standar pengembangan kompetensi pegawai minimal 20 JP setiap tahun sesuai aturan yang berlaku.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">⚡</div>
+                    <div>
+                        <div class="feat-row-title">Akses Ringan & Cepat di Jaringan Apapun</div>
+                        <div class="feat-row-desc">Dibangun dengan teknologi web mutakhir sehingga halaman terbuka sangat cepat, hemat kuota internet, dan tidak memberatkan kapasitas server instansi meskipun diakses ratusan pegawai serentak.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📱</div>
+                    <div>
+                        <div class="feat-row-title">Bisa Dibuka dari Komputer Kantor & HP Pribadi</div>
+                        <div class="feat-row-desc">Pegawai dapat langsung belajar melalui browser HP Android / iPhone maupun laptop kantor tanpa perlu mengunduh aplikasi tambahan dari toko aplikasi (Play Store / App Store).</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🔒</div>
+                    <div>
+                        <div class="feat-row-title">Kepemilikan & Keamanan Penuh Data Instansi</div>
+                        <div class="feat-row-desc">Seluruh data pegawai, nilai ujian, dan berkas sertifikat menjadi milik sah instansi Anda, tersimpan aman di server lokal daerah atau cloud privat tanpa ada pihak luar yang dapat mengaksesnya.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Pengantar Sistem OneLearning & Fondasi Ekosistem Pembelajaran</div>
+                <div>Page 02 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3: METODE PEMBELAJARAN & 9 KOMPETENSI ASN ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>METODE & KURIKULUM</span></div>
+                </div>
+                <div class="page-section-tag">02 / Ragam Metode Pembelajaran</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Dukungan Pembelajaran Lengkap: Daring & Tatap Muka</h2>
+                    <p class="section-desc">Setiap program pelatihan memiliki kebutuhan yang berbeda. Ada materi teori yang nyaman dipelajari sendiri saat luang, ada diskusi tatap maya dengan narasumber, dan ada keterampilan praktik yang membutuhkan bimbingan langsung. OneLearning memadukan metode pembelajaran Daring (Online) dan Luring (Tatap Muka) secara berdampingan.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / portal-katalog / seluruh-program-pembelajaran</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/homepage.png" class="window-img-full" alt="Katalog Pembelajaran">
+                    </div>
+                </div>
+
+                <!-- Multi Metode Daring & Luring — Vertical Rows -->
+                <div class="feat-row" style="margin-bottom:9px;">
+                    <div class="feat-row-icon">🌐</div>
+                    <div>
+                        <div class="feat-row-title">Metode Daring (Online)</div>
+                        <div class="feat-row-desc">
+                            <strong>E-Course Mandiri:</strong> Pegawai belajar 24 jam kapan saja dengan materi video, modul bacaan, dan kuis evaluasi pemahaman.<br>
+                            <strong>Live Webinar:</strong> Sesi tatap maya interaktif langsung via video conference dengan presensi otomatis berstempel waktu.
+                        </div>
+                    </div>
+                </div>
+                <div class="feat-row" style="margin-bottom:9px;">
+                    <div class="feat-row-icon">🏢</div>
+                    <div>
+                        <div class="feat-row-title">Metode Luring (Tatap Muka)</div>
+                        <div class="feat-row-desc">
+                            <strong>In-Class Training:</strong> Pelatihan intensif di ruang kelas diklat kedinasan dengan jadwal dan kuota peserta terkelola.<br>
+                            <strong>Bimtek & Workshop:</strong> Bimbingan teknis dan lokakarya praktik langsung dengan manajemen agenda, pembagian sesi, dan materi tayang.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9 Kompetensi Box -->
+                <div class="glass-panel" style="padding:8px 12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="pill-badge pill-teal">Bonus Siap Pakai: Paket Professional</span>
+                        <span style="font-size:9.5px; font-family:'JetBrains Mono'; font-weight:700; color:var(--brand-emerald);">9 MODUL DASAR ASN LEVEL 1</span>
+                    </div>
+                    <div class="asn-tags-grid">
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>1. Integritas</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>2. Kerjasama</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>3. Komunikasi</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>4. Orientasi Hasil</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>5. Pelayanan Publik</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>6. Pengembangan Diri</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>7. Kelola Perubahan</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>8. Ambil Keputusan</div>
+                        <div class="asn-tag"><div class="asn-tag-dot"></div>9. Perekat Bangsa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Metode Pembelajaran Daring & Luring • 9 Modul ASN Level 1</div>
+                <div>Page 03 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: CLASSROOM & 5 MULTI FORMAT MATERI ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>RUANG BELAJAR DIGITAL</span></div>
+                </div>
+                <div class="page-section-tag">03 / Player & Multi Format Materi</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Ruang Belajar Digital Interaktif & Multi Format Materi</h2>
+                    <p class="section-desc">Halaman ruang belajar OneLearning dirancang dengan tampilan yang bersih, rapi, dan bebas gangguan agar peserta dapat fokus memahami materi. Dilengkapi daftar silabus di samping layar yang otomatis mencentang hijau materi yang telah tuntas dipelajari serta mencatat persentase kemajuan belajar peserta secara akurat.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / ruang-belajar / silabus-materi-terstruktur</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/classroom.png" class="window-img-full" alt="Ruang Belajar Digital">
+                    </div>
+                </div>
+
+                <!-- 5 Multi Format Materi — Vertical Stacked Rows -->
+                <div style="font-size:12px; font-weight:800; color:var(--slate-900); margin-bottom:7px;">
+                    Dukungan 5 Format Pembelajaran E-Course Lengkap:
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🎥</div>
+                    <div>
+                        <div class="feat-row-title">Video Pembelajaran Interaktif</div>
+                        <div class="feat-row-desc">Pemutar video jernih dengan kontrol putar, jeda, dan perekaman otomatis durasi tonton peserta sebagai syarat menyelesaikan bab materi.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📄</div>
+                    <div>
+                        <div class="feat-row-title">Modul & Dokumen PDF</div>
+                        <div class="feat-row-desc">Membaca modul, pedoman resmi, atau peraturan langsung di layar aplikasi tanpa perlu mengunduh atau membuka aplikasi pembaca terpisah.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">✍️</div>
+                    <div>
+                        <div class="feat-row-title">Tulisan & Artikel Terstruktur</div>
+                        <div class="feat-row-desc">Materi berbasis teks terstruktur dengan ringkasan poin-poin inti, contoh kasus penerapan nyata, dan referensi sumber bacaan lanjutan.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📝</div>
+                    <div>
+                        <div class="feat-row-title">Kuis & Evaluasi Pemahaman</div>
+                        <div class="feat-row-desc">Latihan soal pilihan ganda yang diacak otomatis, dilengkapi batas waktu pengerjaan dan standar nilai kelulusan minimum sebelum lanjut ke bab berikutnya.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">💼</div>
+                    <div>
+                        <div class="feat-row-title">Penugasan Mandiri & Pengumpulan Berkas</div>
+                        <div class="feat-row-desc">Fasilitas mengunggah berkas tugas atau laporan resume kerja yang kemudian diperiksa, dinilai, dan diberi umpan balik langsung oleh pemateri/instruktur.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Ruang Belajar Digital • Multi Format Video, PDF, Kuis & Tugas</div>
+                <div>Page 04 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 5: IN-CLASS & BIMTEK TATAP MUKA ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>MANAJEMEN BIMTEK</span></div>
+                </div>
+                <div class="page-section-tag">04 / Pelatihan Tatap Muka</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Tata Kelola Pelatihan Tatap Muka, Bimtek, & Workshop</h2>
+                    <p class="section-desc">Kegiatan bimbingan teknis (bimtek), sosialisasi aturan baru kedinasan, dan lokakarya langsung di ruang kelas tetap memegang peranan krusial dalam pembentukan keterampilan aparatur. OneLearning menyediakan manajemen agenda tatap muka yang teratur, mulai dari pendaftaran kuota, pembagian sesi narasumber, hingga pembagian materi tayang.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / agenda-pelatihan / bimbingan-teknis-tatap-muka</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/agenda.png" class="window-img-full" alt="Agenda Pelatihan Tatap Muka">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">📍</div>
+                    <div>
+                        <div class="feat-row-title">Informasi Lokasi Gedung & Ruang Kelas</div>
+                        <div class="feat-row-desc">Menampilkan informasi lengkap nama gedung pertemuan, nomor ruang kelas, petunjuk arah peta lokasi, dan jadwal sesi per narasumber secara jelas kepada seluruh peserta.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">👥</div>
+                    <div>
+                        <div class="feat-row-title">Pembatasan Kuota Peserta Otomatis</div>
+                        <div class="feat-row-desc">Membatasi kapasitas kursi peserta per gelombang (*batch*) diklat secara otomatis untuk mencegah ruangan over-kapasitas, lengkap dengan indikator jumlah sisa kursi tersedia.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📦</div>
+                    <div>
+                        <div class="feat-row-title">Unduh Materi Tayang (Slide PPT/PDF)</div>
+                        <div class="feat-row-desc">Peserta yang terdaftar dapat mengunduh bahan paparan presentasi narasumber (PPT/PDF) langsung dari halaman agenda pelatihan sebelum sesi dimulai.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Pengelolaan Pelatihan Tatap Muka & Bimbingan Teknis Kedinasan</div>
+                <div>Page 05 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 6: PRESENSI DIGITAL TERVERIFIKASI ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>VERIFIKASI KEHADIRAN</span></div>
+                </div>
+                <div class="page-section-tag">05 / Presensi Terverifikasi</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Presensi Digital Terverifikasi untuk Kelengkapan SPJ</h2>
+                    <p class="section-desc">Keabsahan daftar hadir peserta merupakan syarat wajib dalam laporan pertanggungjawaban kegiatan kedinasan (SPJ). OneLearning menyediakan lembar presensi digital otomatis yang mencatat kehadiran peserta secara presisi, menggunakan waktu nyata server, serta memastikan kehadiran hanya dapat diisi oleh pegawai yang bersangkutan.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / presensi / verifikasi-kehadiran-sesi</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/presensi.png" class="window-img-full" alt="Presensi Digital Terverifikasi">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">⏱️</div>
+                    <div>
+                        <div class="feat-row-title">Pembatasan Waktu Pengisian Presensi</div>
+                        <div class="feat-row-desc">Tombol daftar hadir hanya aktif pada jendela waktu tertentu yang dibuka panitia (misal: 15 menit sebelum hingga sesudah sesi), sehingga mencegah pengisian susulan oleh pegawai yang tidak hadir.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🛡️</div>
+                    <div>
+                        <div class="feat-row-title">Syarat Wajib Terbit E-Sertifikat</div>
+                        <div class="feat-row-desc">Sistem secara otomatis mengunci penerbitan e-sertifikat bagi peserta yang belum melakukan presensi terverifikasi, menjamin keabsahan bukti kelulusan diklat kedinasan.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📊</div>
+                    <div>
+                        <div class="feat-row-title">Ekspor Laporan Daftar Hadir untuk Lampiran SPJ</div>
+                        <div class="feat-row-desc">Panitia pelaksana dapat mengunduh rekapitulasi daftar hadir seluruh peserta ke format Excel lengkap dengan stempel waktu (jam dan menit hadir) untuk berkas SPJ.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Presensi Berstempel Waktu Presisi & Laporan SPJ Instan</div>
+                <div>Page 06 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 7: SERTIFIKAT DIGITAL & QR CODE ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>BUKTI KOMPETENSI</span></div>
+                </div>
+                <div class="page-section-tag">06 / E-Sertifikat & Kode QR</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">E-Sertifikat Otomatis & Validasi Keaslian Kode QR</h2>
+                    <p class="section-desc">Penerbitan sertifikat fisik secara manual membutuhkan waktu berhari-hari dan biaya cetak yang besar. Dengan OneLearning, e-sertifikat resmi langsung terbit secara otomatis begitu peserta menuntaskan materi dan presensi, dilengkapi kode QR unik yang mencegah segala bentuk manipulasi atau pemalsuan dokumen.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / sertifikat / verifikasi-resmi / 2026-ASN-0091</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/certificate.png" class="window-img-full" alt="Sertifikat Digital Berkode QR">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">🔍</div>
+                    <div>
+                        <div class="feat-row-title">Scan Cek Keaslian Sertifikat Lewat Kamera HP</div>
+                        <div class="feat-row-desc">Atasan atau auditor kepegawaian dapat memindai kode QR menggunakan kamera smartphone untuk memeriksa keaslian data nama pemilik, tanggal terbit, dan nomor SK yang tercetak.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📥</div>
+                    <div>
+                        <div class="feat-row-title">Unduh Sertifikat dalam Format PDF Resolusi Tinggi</div>
+                        <div class="feat-row-desc">Peserta dapat mengunduh dokumen sertifikat dalam format PDF tajam kapan saja langsung dari akun pribadi untuk keperluan lampiran berkas portofolio karier kedinasan.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📋</div>
+                    <div>
+                        <div class="feat-row-title">Penomoran Registrasi Sertifikat Otomatis & Rapi</div>
+                        <div class="feat-row-desc">Format nomor register sertifikat berjalan rapi secara berurutan sesuai pola tata naskah dinas instansi tanpa risiko terjadi nomor ganda atau salah ketik.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">E-Sertifikat Digital Otomatis & Validasi Anti-Pemalsuan</div>
+                <div>Page 07 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 8: PROFILE PERJALANAN BELAJAR & JP TRACKER ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>PORTAL PEMBELAJAR</span></div>
+                </div>
+                <div class="page-section-tag">07 / Profile Perjalanan Belajar</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Profile Perjalanan Belajar Pegawai & Akumulasi JP Tahunan</h2>
+                    <p class="section-desc">Setiap pegawai memiliki profil perjalanan belajar pribadi yang mencatat seluruh rekam jejak pelatihan yang pernah diikuti. Dilengkapi indikator visual jam pelajaran (*JP Gauge*) yang menghitung pencapaian target minimal 20 JP per tahun secara otomatis, transparan, dan dapat dipantau setiap saat.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">onelearning.app / dashboard-pembelajar / indikator-jam-pelajaran</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/dashboard.png" class="window-img-full" alt="Profile Perjalanan Belajar Pegawai">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">🎯</div>
+                    <div>
+                        <div class="feat-row-title">Indikator Visual Target JP Tahunan</div>
+                        <div class="feat-row-desc">Grafik lingkaran visual yang memperlihatkan capaian jam belajar berjalan (misal: 16 dari target 20 JP) dan terus bertambah secara otomatis seiring penyelesaian setiap diklat.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🌐</div>
+                    <div>
+                        <div class="feat-row-title">Pengakuan Sertifikat Pelatihan dari Luar LMS</div>
+                        <div class="feat-row-desc">Pegawai dapat mengunggah sertifikat dari seminar atau pelatihan luar instansi. Setelah disetujui admin, jam belajarnya <strong>langsung terakumulasi ke target JP tahunan</strong> secara otomatis.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🗄️</div>
+                    <div>
+                        <div class="feat-row-title">Riwayat Perjalanan Belajar Tersimpan Permanen</div>
+                        <div class="feat-row-desc">Seluruh rekam jejak diklat tersimpan aman seumur hidup dalam <strong>history tahunan dan tidak akan pernah hilang</strong>. Sertifikat dapat diunduh ulang kapan saja dalam format PDF.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Profile Perjalanan Belajar Pegawai • Akumulasi JP Tahunan & Eksternal</div>
+                <div>Page 08 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 9: AUDIT REKAM JEJAK PEGAWAI ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>AUDIT KEPEGAWAIAN</span></div>
+                </div>
+                <div class="page-section-tag">08 / Riwayat & Verifikasi Diklat</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Audit Riwayat Belajar & Pengesahan Pelatihan Eksternal</h2>
+                    <p class="section-desc">Bagi pengelola kepegawaian (BKPSDM / Bagian Organisasi), halaman audit ini memberikan gambaran terperinci mengenai seluruh kegiatan pembelajaran tiap aparatur. Admin dapat memeriksa kelulusan kursus internal, melihat nilai ujian, serta mengesahkan jam belajar dari pelatihan eksternal secara terpusat.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">admin / audit-profil-belajar-pegawai / riwayat-diklat-lengkap</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/user_detail.png" class="window-img-full" alt="Audit Riwayat Pegawai">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">📑</div>
+                    <div>
+                        <div class="feat-row-title">Rekam Riwayat Belajar Pegawai dalam Satu Halaman</div>
+                        <div class="feat-row-desc">Melihat daftar seluruh modul internal yang sedang dipelajari maupun telah lulus, nilai evaluasi kuis, tanggal tuntas, dan total jam belajar yang telah terakumulasi.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">✅</div>
+                    <div>
+                        <div class="feat-row-title">Persetujuan Klaim JP Pelatihan Luar — Satu Klik</div>
+                        <div class="feat-row-desc">Admin dapat memeriksa lampiran berkas sertifikat luar yang diunggah pegawai dan memberikan persetujuan (*approval*) satu klik untuk langsung menambah akumulasi JP.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📈</div>
+                    <div>
+                        <div class="feat-row-title">Pantau Kepatuhan 20 JP per OPD / Unit Kerja</div>
+                        <div class="feat-row-desc">Memudahkan pimpinan mendeteksi dinas atau unit kerja mana saja yang pegawainya masih kurang jam belajar agar segera diikutsertakan dalam pelatihan lanjutan.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Audit Profil Belajar Pegawai • Persetujuan JP Pelatihan Luar</div>
+                <div>Page 09 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 10: PUSAT KONTROL SUPERADMIN ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>PUSAT KONTROL UTAMA</span></div>
+                </div>
+                <div class="page-section-tag">09 / Manajemen Lintas Instansi</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Pusat Kontrol Administrator & Pemantauan Lintas Dinas</h2>
+                    <p class="section-desc">Panel kendali utama bagi administrator sistem dan pimpinan kepegawaian untuk memantau aktivitas pelatihan di seluruh dinas, badan, dan kantor kecamatan. Dilengkapi ringkasan metrik statistik pengguna aktif, kursus yang sedang dibuka, agenda bimtek berjalan, dan status sertifikasi pegawai.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">superadmin / portal-manajemen-lintas-opd / rekapitulasi-utama</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/admin_dashboard.png" class="window-img-full" alt="Dashboard Utama Superadmin">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">🏢</div>
+                    <div>
+                        <div class="feat-row-title">Struktur Organisasi Multi-OPD / Multi-Dinas</div>
+                        <div class="feat-row-desc">Mengelompokkan ribuan akun pegawai berdasarkan dinas, badan, kecamatan, atau unit kerja masing-masing sehingga rekapitulasi data tersusun rapi dan mudah ditelusuri.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">🔑</div>
+                    <div>
+                        <div class="feat-row-title">Hak Akses Pengguna Bertingkat & Terkontrol</div>
+                        <div class="feat-row-desc">Pembagian peran yang jelas: Super Admin (pengelola daerah), Admin Dinas (pengelola unit), Instruktur/Narasumber (pengajar), dan Peserta Belajar dengan batasan hak akses masing-masing.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📊</div>
+                    <div>
+                        <div class="feat-row-title">Laporan Eksekutif Siap Serah untuk Pimpinan</div>
+                        <div class="feat-row-desc">Penyajian data ringkas dan visual yang siap diserahkan kepada Bupati, Walikota, atau Sekretaris Daerah mengenai tingkat keaktifan peningkatan kompetensi aparatur.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Pusat Kontrol Administrator • Tata Kelola Multi-Dinas Terpadu</div>
+                <div>Page 10 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 11: PENGATURAN KONTEN & URUTAN MATERI ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>PENGATURAN KONTEN</span></div>
+                </div>
+                <div class="page-section-tag">10 / Banner & Pengelolaan Materi</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Pengaturan Banner Promosi & Pengelolaan Materi Praktis</h2>
+                    <p class="section-desc">Mengelola konten pelatihan di OneLearning tidak membutuhkan keahlian teknis pemrograman sama sekali. Pengelola sistem dapat dengan mudah memasang banner pengumuman kegiatan pimpinan daerah, menambah kursus baru, mengatur prioritas pelatihan unggulan yang akan ditampilkan di halaman utama, serta memperbarui materi kapan saja melalui panel admin yang sederhana.</p>
+                </div>
+
+                <!-- Window Frame FULL WIDTH ATAS-BAWAH -->
+                <div class="window-frame-full">
+                    <div class="window-header">
+                        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                        <span class="window-title">admin-cms / manajemen-banner-beranda / pengaturan-materi-katalog</span>
+                    </div>
+                    <div class="window-body">
+                        <img src="/proposal-assets/admin_sliders.png" class="window-img-full" alt="Manajemen Banner dan Pengelolaan Materi">
+                    </div>
+                </div>
+
+                <div class="feat-row">
+                    <div class="feat-row-icon">🖼️</div>
+                    <div>
+                        <div class="feat-row-title">Pasang Banner Acara & Pengumuman Resmi</div>
+                        <div class="feat-row-desc">Mengunggah spanduk digital promosi bimtek baru atau sambutan kepala daerah yang dapat langsung diklik oleh peserta untuk menuju ruang pendaftaran kelas terkait.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">📂</div>
+                    <div>
+                        <div class="feat-row-title">Pembuat Kursus Mudah Tanpa Keahlian Teknis</div>
+                        <div class="feat-row-desc">Admin atau instruktur dapat membuat kursus baru, menyusun silabus, mengunggah materi video/PDF, menambah kuis, dan mengatur jadwal semuanya melalui antarmuka visual tanpa perlu menulis kode.</div>
+                    </div>
+                </div>
+                <div class="feat-row">
+                    <div class="feat-row-icon">⚡</div>
+                    <div>
+                        <div class="feat-row-title">Perubahan Konten Langsung Tampil Seketika</div>
+                        <div class="feat-row-desc">Semua pembaruan konten kursus dan banner otomatis tampil seketika di layar seluruh pegawai tanpa perlu proses menunggu lama atau bantuan tim teknis khusus.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Pengaturan Konten Praktis • Banner Promosi & Manajemen Materi</div>
+                <div>Page 11 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 12: TEKNOLOGI & KOMPARASI ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>SPESIFIKASI TEKNIS</span></div>
+                </div>
+                <div class="page-section-tag">11 / Teknologi & Perbandingan</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Spesifikasi Teknologi Modern & Perbandingan Platform</h2>
+                    <p class="section-desc">Dibangun di atas fondasi teknologi web berstandar tinggi yang terkenal stabil, ringan, dan hemat pemakaian memori server. Memastikan sistem dapat digunakan dengan lancar oleh ribuan pegawai secara bersamaan tanpa kendala lambat atau server macet.</p>
+                </div>
+
+                <!-- 8 Tech Chips -->
+                <div class="tech-chips-grid">
+                    <div class="tech-chip"><div class="tech-chip-icon">🐘</div><div class="tech-chip-name">Laravel 11</div><div class="tech-chip-role">Backend Cepat & Aman</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">🌊</div><div class="tech-chip-name">Tailwind CSS</div><div class="tech-chip-role">Tampilan Sangat Ringan</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">⚡</div><div class="tech-chip-name">Alpine.js</div><div class="tech-chip-role">Interaksi Responsif</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">🗄️</div><div class="tech-chip-name">MySQL Database</div><div class="tech-chip-role">Penyimpanan Terstruktur</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">🔐</div><div class="tech-chip-name">SSO Kepegawaian</div><div class="tech-chip-role">Satu Akun untuk Masuk</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">☁️</div><div class="tech-chip-name">Penyimpanan Berkas</div><div class="tech-chip-role">Server Pemda / Cloud</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">🔗</div><div class="tech-chip-name">REST API Ready</div><div class="tech-chip-role">Sambung ke SIMPEG/SIASN</div></div>
+                    <div class="tech-chip"><div class="tech-chip-icon">📦</div><div class="tech-chip-name">Vite Engine</div><div class="tech-chip-role">Buka Halaman Instan</div></div>
+                </div>
+
+                <!-- Comparison Table -->
+                <table class="v2-table">
+                    <thead>
+                        <tr>
+                            <th style="width:36%;">Fitur & Kemampuan Penting</th>
+                            <th>OneLearning</th>
+                            <th>Moodle Konvensional</th>
+                            <th>Google Classroom</th>
+                            <th>Zoom LMS Biasa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td>9 Modul Dasar ASN Level 1</td>
+                            <td><span class="check-yes">★ SUDAH TERSEDIA</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                        </tr>
+                        <tr>
+                            <td>Metode Daring (E-Course, Webinar) & Luring (Bimtek)</td>
+                            <td><span class="check-yes">✓ Lengkap Terpadu</span></td>
+                            <td><span class="check-plugin">△ Rumit Diatur</span></td>
+                            <td><span class="check-no">✕ Terbatas Tugas</span></td>
+                            <td><span class="check-plugin">△ Hanya Tatap Maya</span></td>
+                        </tr>
+                        <tr>
+                            <td>5 Multi Format Materi (Video, PDF, Tulisan, Kuis, Tugas)</td>
+                            <td><span class="check-yes">✓ Terintegrasi Penuh</span></td>
+                            <td><span class="check-plugin">△ Perlu Modul Tambahan</span></td>
+                            <td><span class="check-plugin">△ Dasar / File Biasa</span></td>
+                            <td><span class="check-no">✕ Tidak Mendukung</span></td>
+                        </tr>
+                        <tr>
+                            <td>Presensi Digital Berstempel Waktu untuk SPJ</td>
+                            <td><span class="check-yes">✓ Otomatis & Akurat</span></td>
+                            <td><span class="check-plugin">△ Perlu Plugin Luar</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-plugin">△ Hanya Log Masuk</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sertifikat Otomatis + Scan Validasi Kode QR</td>
+                            <td><span class="check-yes">✓ Bawaan & Instan</span></td>
+                            <td><span class="check-plugin">△ Konfigurasi Sulit</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                        </tr>
+                        <tr>
+                            <td>Akumulasi JP Luar LMS & Profile Belajar Permanen</td>
+                            <td><span class="check-yes">✓ Otomatis & Seumur Hidup</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                            <td><span class="check-no">✕ Tidak Ada</span></td>
+                        </tr>
+                        <tr>
+                            <td>Kustomisasi Identitas Lembaga / Instansi (Logo, Warna, Domain)</td>
+                            <td><span class="check-yes">✓ Full Kustomisasi</span></td>
+                            <td><span class="check-plugin">△ Sangat Rumit</span></td>
+                            <td><span class="check-no">✕ Tidak Bisa Diubah</span></td>
+                            <td><span class="check-no">✕ Tidak Bisa Diubah</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Arsitektur Teknologi Web & Matriks Keunggulan Solusi</div>
+                <div>Page 12 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 13: PAKET HARGA ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>INVESTASI LAYANAN</span></div>
+                </div>
+                <div class="page-section-tag">12 / Paket Implementasi</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Pilihan Paket Implementasi & Skema Pengadaan</h2>
+                    <p class="section-desc">Kami menyediakan pilihan skema kerja sama yang fleksibel dan transparan, dapat disesuaikan dengan skala jumlah pegawai instansi Anda serta mekanisme pengadaan barang/jasa pemerintah yang berlaku.</p>
+                </div>
+
+                <div class="pricing-v2-grid">
+                    <!-- BASIC -->
+                    <div class="pricing-v2-card">
+                        <div>
+                            <div class="pricing-plan-name">Paket Basic</div>
+                            <div class="pricing-price-tag">Konsultasi Resmi <span>/ instansi</span></div>
+                            <div class="pricing-desc-text">Solusi implementasi mandiri fokus pembelajaran daring pada server atau data center instansi Anda.</div>
+                            <ul class="pricing-features-list">
+                                <li>Pemasangan source code di server / data center Pemda</li>
+                                <li>Khusus Metode Pembelajaran Daring (E-Course mandiri instansi)</li>
+                                <li>Multi Format Materi Daring (Video, PDF, Tulisan, Kuis, Tugas)</li>
+                                <li>Presensi digital berstempel waktu (khusus sesi daring)</li>
+                                <li>Penerbitan e-sertifikat ber-QR Code untuk kursus internal LMS</li>
+                                <li>Pencatatan Jam Pelajaran (JP) otomatis dari kursus internal</li>
+                                <li>Full Kustomisasi Identitas Lembaga (Logo, Nama, Subdomain)</li>
+                                <li>Garansi teknis &amp; bantuan pemeliharaan selama 6 bulan</li>
+                                <li style="color:var(--slate-500); font-size:8.5px; margin-top:4px;">* Belum termasuk bonus 9 modul ASN, metode luring/in-class, dan pengakuan sertifikat luar LMS.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PROFESSIONAL -->
+                    <div class="pricing-v2-card featured">
+                        <div class="pricing-top-tag">Paling Direkomendasikan</div>
+                        <div>
+                            <div class="pricing-plan-name" style="color:var(--brand-dark);">Paket Professional</div>
+                            <div class="pricing-price-tag">Konsultasi Resmi <span>/ instansi</span></div>
+                            <div class="pricing-desc-text">Solusi menyeluruh daring &amp; luring dengan materi 9 modul ASN siap pakai dan opsi server terkelola.</div>
+                            <ul class="pricing-features-list">
+                                <li class="highlight-item">Bonus Free Cloud VPS SSD Kinerja Tinggi 1 Tahun (opsional jika belum ada server)</li>
+                                <li>Dapat dipasang di server Pemda jika instansi sudah siap server sendiri</li>
+                                <li class="highlight-item">Sudah Termasuk Bonus 9 Modul E-Course Kompetensi ASN Level 1</li>
+                                <li class="highlight-item">Pengakuan Sertifikat Luar LMS &amp; Akumulasi JP Tahunan Permanen</li>
+                                <li>Lengkap Multi-Metode: Daring (E-Course, Webinar) &amp; Luring (In-Class, Bimtek, Workshop)</li>
+                                <li>Lengkap 5 Multi-Format Materi (Video, PDF, Tulisan, Kuis, Penugasan)</li>
+                                <li>Profile Perjalanan Belajar Pegawai Terintegrasi (Data Permanen)</li>
+                                <li>Presensi digital berstempel waktu untuk kelengkapan SPJ</li>
+                                <li>Full Kustomisasi Identitas Lembaga hingga format kop sertifikat</li>
+                                <li>Dukungan teknis prioritas selama 12 bulan &amp; bimbingan onboarding</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Highlight Box Infrastruktur Server -->
+                <div class="glass-panel" style="padding:8px 12px; border-left:3px solid var(--brand-primary); margin-top:5px;">
+                    <div style="font-size:10.5px; font-weight:800; color:var(--slate-900); margin-bottom:2px; display:flex; align-items:center; gap:5px;">
+                        <span>🏢</span> Catatan Pemasangan Server & Bonus Spesial:
+                    </div>
+                    <ul style="font-size:9.5px; color:var(--slate-600); line-height:1.5; padding-left:15px; text-align:justify;">
+                        <li>Sistem dirancang siap dipasang langsung di server pemerintah daerah yang dikelola oleh <strong>Diskominfo</strong> atau instansi terkait (on-premise / cloud).</li>
+                        <li>Bagi instansi yang belum menyiapkan server sendiri, kami sediakan <strong>Bonus Gratis Cloud VPS Kinerja Tinggi dan Domain Resmi untuk tahun pertama</strong>.</li>
+                        <li>Seluruh paket mencakup bantuan instalasi, pendampingan uji coba, pelatihan administrator, serta garansi pemeliharaan sistem. Pengadaan dapat dilakukan secara fleksibel lewat pengadaan langsung maupun e-Katalog / tender resmi.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">Paket Implementasi Layanan • Opsi Server Diskominfo Daerah</div>
+                <div>Page 13 of 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 14: KONTAK ================= -->
+    <div class="page-a4">
+        <div class="page-inner">
+            <div class="page-top-bar">
+                <div class="page-brand-mini">
+                    <div class="brand-dot"></div>
+                    <div class="brand-name-mini">OneLearning <span>KONSULTASI & DISKUSI</span></div>
+                </div>
+                <div class="page-section-tag">13 / Hubungi Kami</div>
+            </div>
+
+            <div>
+                <div class="section-headline">
+                    <h2 class="section-title">Mulai Transformasi Pelatihan Bersama Tim Ahli Kami</h2>
+                    <p class="section-desc">Konsultan kami siap mendampingi instansi Anda mulai dari sesi pemaparan di hadapan pimpinan, demonstrasi sistem (*live demo*) gratis, hingga pendampingan peluncuran sistem secara menyeluruh.</p>
+                </div>
+
+                <!-- Contact Hero Card -->
+                <div class="contact-v2-card">
+                    <div class="contact-v2-logo">OneLearning</div>
+                    <div class="contact-v2-sub">dikembangkan oleh People Development Consulting</div>
+                    <div class="contact-v2-tagline">Solusi Pembelajaran Mandiri & Terpadu untuk Peningkatan Kinerja Pegawai Indonesia</div>
+
+                    <div class="contact-v2-items">
+                        <div class="contact-v2-item">
+                            <div class="contact-v2-label">Email Resmi</div>
+                            <div class="contact-v2-val">peodev.consulting@gmail.com</div>
+                        </div>
+                        <div class="contact-v2-item">
+                            <div class="contact-v2-label">Hotline WhatsApp</div>
+                            <div class="contact-v2-val">0822-2963-3860</div>
+                        </div>
+                        <div class="contact-v2-item">
+                            <div class="contact-v2-label">Jam Layanan</div>
+                            <div class="contact-v2-val">Senin–Jumat, 09.00–17.00 WIB</div>
+                        </div>
+                    </div>
+
+                    <a href="mailto:peodev.consulting@gmail.com" class="contact-v2-cta">Jadwalkan Presentasi & Demo Gratis ➔</a>
+                    <div style="margin-top:10px; font-size:9px; color:rgba(255, 255, 255, 0.5); font-family:'JetBrains Mono', monospace;">
+                        © 2026 OneLearning by People Development Consulting. Seluruh Hak Cipta Dilindungi.
+                    </div>
+                </div>
+
+                <!-- Mengapa Memilih OneLearning -->
+                <div class="glass-panel" style="padding:10px 12px;">
+                    <div style="font-size:12px; font-weight:800; color:var(--slate-900); margin-bottom:6px; text-align:center; font-family:'Space Grotesk', sans-serif;">
+                        Mengapa Memilih OneLearning?
+                    </div>
+                    <div class="grid-2">
+                        <div class="feat-item" style="padding:7px 9px;">
+                            <div class="feat-title">🇮🇩 Bahasa Awam & Mudah Dipahami</div>
+                            <div class="feat-desc">Tata kata ramah, alur kerja praktis, dan sesuai dengan tata naskah dinas kedinasan aparatur.</div>
+                        </div>
+                        <div class="feat-item" style="padding:7px 9px;">
+                            <div class="feat-title">⚡ Siap Pakai Cepat (2–4 Minggu)</div>
+                            <div class="feat-desc">Pemasangan server di Diskominfo, kustomisasi merek dinas, dan pelatihan admin selesai kilat.</div>
+                        </div>
+                        <div class="feat-item" style="padding:7px 9px;">
+                            <div class="feat-title">🎨 Full Kustomisasi Identitas Lembaga</div>
+                            <div class="feat-desc">Nama sistem, logo instansi/pemda, skema warna, dan domain web disesuaikan penuh menjadi milik lembaga Anda.</div>
+                        </div>
+                        <div class="feat-item" style="padding:7px 9px;">
+                            <div class="feat-title">📞 Bantuan Teknis Lokal & Ramah</div>
+                            <div class="feat-desc">Didukung tim teknis berbahasa Indonesia yang responsif via WhatsApp dan siap kunjungan dinas.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer-bar">
+                <div class="footer-secure-tag">OneLearning Ecosystem • People Development Consulting</div>
+                <div>Page 14 of 14</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAK Pengadaan LMS OneLearning V3 — BKPSDM Kabupaten Berau TA 2026</title>
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Futuristic v0.dev Dark Theme Tokens */
+            --bg-base: #090d16;
+            --bg-subtle: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --bg-glass: rgba(15, 23, 42, 0.65);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(56, 189, 248, 0.35);
+            
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.18);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.16);
+            --indigo: #6366f1;
+            --amber: #f59e0b;
+            
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+            --badge-bg: rgba(56, 189, 248, 0.1);
+            --badge-border: rgba(56, 189, 248, 0.3);
+
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-subtle: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-subtle: rgba(15, 23, 42, 0.08);
+            --border-glow: rgba(2, 132, 199, 0.25);
+            
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.12);
+            --emerald: #047857;
+            --emerald-glow: rgba(4, 120, 87, 0.12);
+            --indigo: #4338ca;
+            --amber: #b45309;
+            
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --badge-bg: rgba(2, 132, 199, 0.08);
+            --badge-border: rgba(2, 132, 199, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.65;
+            font-size: 15px;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Ambient Glow & Grid Background */
+        .ambient-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="light"] .ambient-grid {
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+        }
+
+        .ambient-glow-sphere {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+        }
+
+        /* Layout Container */
+        .app-layout {
+            position: relative;
+            z-index: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 30px 24px 100px 24px;
+        }
+
+        /* Top Sticky Floating Navbar with Integrated Menu */
+        .top-nav {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 10px 18px 8px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 36px -10px rgba(0,0,0,0.35);
+            transition: all 0.2s ease;
+        }
+
+        .nav-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-sub-badge {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            padding: 2px 8px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] .brand-sub-badge {
+            background: rgba(15, 23, 42, 0.04);
+        }
+
+        .nav-menu-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            flex-wrap: wrap;
+            overflow: visible;
+        }
+
+        .nav-menu-item {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 7px;
+            color: var(--text-sub);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            background: transparent;
+        }
+
+        .nav-menu-item:hover {
+            color: var(--text-main);
+            background: rgba(56, 189, 248, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu-item.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 2px 8px var(--primary-glow);
+        }
+
+        .brand-pill {
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #0284c7 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 14px var(--primary-glow);
+        }
+
+        .nav-btn-primary:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+        }
+
+        /* Hero Document Header */
+        .doc-header-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 36px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .doc-header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--emerald), var(--indigo));
+        }
+
+        .doc-tag-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-family: var(--font-mono);
+            font-size: 11.5px;
+            font-weight: 600;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--primary);
+        }
+
+        .status-badge-green {
+            background: var(--emerald-glow);
+            border-color: rgba(16, 185, 129, 0.35);
+            color: var(--emerald);
+        }
+
+        .doc-title-main {
+            font-family: var(--font-heading);
+            font-size: 34px;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: var(--text-sub);
+            max-width: 860px;
+            margin-bottom: 28px;
+        }
+
+        /* Executive Metadata Grid */
+        .meta-pill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .meta-value {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .meta-value-highlight {
+            font-family: var(--font-mono);
+            font-size: 18px;
+            color: #38bdf8;
+            font-weight: 800;
+        }
+
+        [data-theme="light"] .meta-value-highlight {
+            color: #0284c7;
+        }
+
+        /* Symmetrical Vertical Stack for Bab III Tujuan Utama */
+        .tujuan-vertical-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .tujuan-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="light"] .tujuan-card {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+        }
+
+        .tujuan-card:hover {
+            border-color: var(--border-glow);
+            transform: translateX(4px);
+            background: var(--bg-card-hover);
+        }
+
+        .tujuan-card-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+        }
+
+        [data-theme="light"] .tujuan-card-icon {
+            background: rgba(2, 132, 199, 0.06);
+            border-color: rgba(2, 132, 199, 0.2);
+        }
+
+        .tujuan-card-body {
+            flex: 1;
+        }
+
+        .tujuan-card-title {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 3px 0;
+        }
+
+        .tujuan-card-desc {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Section Layout */
+        .kak-section {
+            margin-bottom: 42px;
+            scroll-margin-top: 115px;
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 34px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+        }
+
+        .section-header-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            border-bottom: 1px dashed var(--border-subtle);
+            padding-bottom: 18px;
+        }
+
+        .sec-num-badge {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 800;
+            padding: 4px 10px;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--primary);
+            border-radius: 8px;
+        }
+
+        .sec-heading-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        /* Content Blocks & Cards */
+        .content-prose {
+            color: var(--text-sub);
+            font-size: 14.5px;
+            line-height: 1.75;
+        }
+
+        .content-prose p {
+            margin-bottom: 16px;
+        }
+
+        .content-prose strong {
+            color: var(--text-main);
+        }
+
+        /* Feature Cards Grid (v0 style) */
+        .features-grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .feat-box {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        [data-theme="light"] .feat-box {
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+        }
+
+        .feat-box:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.25);
+        }
+
+        .feat-box-highlight {
+            border-color: rgba(56, 189, 248, 0.35);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(15, 23, 42, 0.5) 100%);
+        }
+
+        [data-theme="light"] .feat-box-highlight {
+            background: #ffffff;
+            border-color: rgba(2, 132, 199, 0.3);
+        }
+
+        .feat-icon-tag {
+            font-size: 22px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .feat-title {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .feat-desc {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        /* Custom Badges & Tags */
+        .sub-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* IDP Timeline Preview Widget */
+        .idp-timeline-widget {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius-sm);
+            flex-wrap: wrap;
+        }
+
+        [data-theme="light"] .idp-timeline-widget {
+            background: #f1f5f9;
+        }
+
+        .idp-chip {
+            padding: 6px 10px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* High-Contrast Tables */
+        .table-responsive-box {
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+        }
+
+        .kak-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13.5px;
+        }
+
+        .kak-table th {
+            background: rgba(15, 23, 42, 0.85);
+            color: var(--text-main);
+            padding: 14px 18px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        [data-theme="light"] .kak-table th {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .kak-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-sub);
+            vertical-align: top;
+        }
+
+        .kak-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        [data-theme="light"] .kak-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* Checklists */
+        .check-list-ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .check-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .check-icon-sq {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 6px;
+            background: var(--emerald-glow);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        /* Gantt Timeline Bar */
+        .timeline-progress-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .t-step-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            position: relative;
+        }
+
+        [data-theme="light"] .t-step-box {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+        }
+
+        .t-step-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+
+        .t-step-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .t-step-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .t-step-days {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Footer Signature Block */
+        .footer-sig-block {
+            margin-top: 50px;
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 20px;
+        }
+
+        .sig-card {
+            text-align: center;
+            min-width: 280px;
+            padding: 24px;
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius-md);
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        [data-theme="light"] .sig-card {
+            background: #ffffff;
+        }
+
+        /* Floating Actions Bar */
+        .floating-action-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        /* Print Media Stylesheet */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+
+            .ambient-grid,
+            .ambient-glow-sphere,
+            .top-nav,
+            .section-jump-nav,
+            .floating-action-fab {
+                display: none !important;
+            }
+
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10.5pt;
+                line-height: 1.5;
+            }
+
+            .app-layout {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .doc-header-card,
+            .section-card,
+            .feat-box,
+            .t-step-box,
+            .tujuan-card {
+                box-shadow: none !important;
+                border: 1px solid #d1d5db !important;
+                background: #ffffff !important;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .section-card {
+                padding: 20px 24px !important;
+                margin-bottom: 16px !important;
+            }
+
+            .doc-title-main {
+                color: #000000 !important;
+                font-size: 18pt !important;
+            }
+
+            .kak-table th {
+                background: #f1f5f9 !important;
+                color: #000000 !important;
+                border: 1px solid #cbd5e1 !important;
+                padding: 8px 12px !important;
+            }
+
+            .kak-table td {
+                border: 1px solid #cbd5e1 !important;
+                color: #000000 !important;
+                padding: 8px 12px !important;
+            }
+
+            /* Bab X and Signature 1-Page Fit */
+            #section-10 {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 0 !important;
+            }
+
+            #section-10 .section-card {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                padding: 18px 22px !important;
+            }
+
+            #section-10 .timeline-progress-bar {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px 12px !important;
+                margin-top: 12px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            #section-10 .t-step-box {
+                padding: 8px 12px !important;
+                margin-bottom: 0 !important;
+                border: 1px solid #cbd5e1 !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            #section-10 .t-step-box:last-child {
+                grid-column: 1 / -1 !important;
+            }
+
+            #section-10 .t-step-num {
+                font-size: 9pt !important;
+                margin-bottom: 2px !important;
+                color: #0284c7 !important;
+            }
+
+            #section-10 .t-step-title {
+                font-size: 10.5pt !important;
+                margin-bottom: 2px !important;
+                color: #000000 !important;
+            }
+
+            #section-10 .t-step-days {
+                font-size: 8.5pt !important;
+                color: #475569 !important;
+            }
+
+            .footer-sig-block {
+                margin-top: 18px !important;
+                padding-top: 0 !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .sig-card {
+                padding: 12px 20px !important;
+                border: 1px dashed #94a3b8 !important;
+                background: #ffffff !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .sig-card .sig-office-title {
+                margin-bottom: 40px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-grid-2col {
+                grid-template-columns: 1fr;
+            }
+            .timeline-progress-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .timeline-progress-bar .t-step-box:last-child {
+                grid-column: 1 / -1;
+            }
+            .doc-title-main {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Grid & Glow -->
+    <div class="ambient-grid"></div>
+    <div class="ambient-glow-sphere"></div>
+
+    <div class="app-layout">
+
+        <!-- Top Sticky Header with Integrated Section Menu -->
+        <header class="top-nav">
+            <div class="nav-top-row">
+                <div class="nav-brand">
+                    <span class="brand-pill">ONELEARNING V3</span>
+                    <span>KERANGKA ACUAN KERJA (KAK)</span>
+                    <span class="brand-sub-badge">BKPSDM BERAU 2026</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="nav-btn" onclick="toggleTheme()" title="Ubah Tema Gelap / Terang">
+                        <span id="theme-icon">☀️</span> <span id="theme-text">Mode Terang</span>
+                    </button>
+                    <button class="nav-btn" onclick="window.print()" title="Cetak atau Simpan sebagai Dokumen PDF">
+                        🖨️ Cetak PDF
+                    </button>
+                    <a href="#section-5" class="nav-btn nav-btn-primary">
+                        💰 Pagu: Rp 100 Juta
+                    </a>
+                </div>
+            </div>
+            <nav class="nav-menu-bar" aria-label="Navigasi Menu KAK">
+                <a href="#section-1" class="nav-menu-item active">I. Latar Belakang</a>
+                <a href="#section-2" class="nav-menu-item">II. Dasar Hukum</a>
+                <a href="#section-3" class="nav-menu-item">III. Maksud &amp; Tujuan</a>
+                <a href="#section-4" class="nav-menu-item">IV. Target &amp; Sasaran</a>
+                <a href="#section-5" class="nav-menu-item">V. Pagu HPS</a>
+                <a href="#section-6" class="nav-menu-item">VI. Ruang Lingkup</a>
+                <a href="#section-7" class="nav-menu-item">VII. Deliverables</a>
+                <a href="#section-8" class="nav-menu-item">VIII. Server</a>
+                <a href="#section-9" class="nav-menu-item">IX. Tenaga Ahli</a>
+                <a href="#section-10" class="nav-menu-item">X. Jadwal (60 Hari)</a>
+            </nav>
+        </header>
+
+        <!-- Document Hero Header -->
+        <div class="doc-header-card">
+            <div class="doc-tag-bar">
+                <span class="status-badge status-badge-green">● DOKUMEN SPESIFIKASI PENGADAAN PEMERINTAH</span>
+                <span class="status-badge">TAHUN ANGGARAN 2026</span>
+                <span class="status-badge">SPBE STANDAR</span>
+            </div>
+            <h1 class="doc-title-main">
+                Pengadaan, Pengembangan, &amp; Implementasi LMS Terintegrasi Pengembangan Kompetensi ASN
+            </h1>
+            <p class="doc-subtitle">
+                Platform Corporate University Digital Terpadu untuk Pelacakan Jam Pelajaran (20 JP Mandat UU ASN), Pengakuan Sertifikat Luar LMS, Kurikulum IDP Tahun 1–5, dan Penerbitan Sertifikat QR Publik Tanpa Beban Biaya Sewa Lisensi Berulang.
+            </p>
+
+            <div class="meta-pill-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Satuan Kerja Pengguna</span>
+                    <span class="meta-value">BKPSDM Kabupaten Berau</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Wilayah Kerja</span>
+                    <span class="meta-value">Kab. Berau, Kalimantan Timur</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Sumber Dana</span>
+                    <span class="meta-value">APBD Kabupaten Berau TA 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Pagu Anggaran / HPS</span>
+                    <span class="meta-value-highlight">Rp 100.000.000,-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION I -->
+        <section id="section-1" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB I</span>
+                    <h2 class="sec-heading-title">Latar Belakang</h2>
+                </div>
+                <div class="content-prose">
+                    <p>
+                        <strong>1. Mandat Regulasi Pengembangan Kompetensi Berkelanjutan:</strong><br>
+                        Berdasarkan ketentuan Undang-Undang Nomor 20 Tahun 2023 tentang Aparatur Sipil Negara, setiap pegawai ASN wajib mendapatkan pengembangan kompetensi minimal <strong>20 Jam Pelajaran (JP) per tahun</strong>. Pembelajaran tatap muka konvensional memerlukan biaya akomodasi dan perjalanan dinas tinggi, kuota ruang kelas terbatas, serta mengganggu operasional tugas pokok harian.
+                    </p>
+                    <p>
+                        <strong>2. Kebutuhan Tempat Terpadu Penyimpanan Seluruh Riwayat Pengembangan ASN:</strong><br>
+                        Pemerintah Kabupaten Berau membutuhkan platform repositori tunggal terpusat (*Single Source of Truth*) yang mengabadikan seluruh rekam jejak pelatihan aparatur sepanjang masa dinas, mencakup histori pembelajaran internal, pencatatan JP otomatis, hingga verifikasi pengakuan sertifikat pelatihan yang diperoleh pegawai di luar LMS Pemkab Berau.
+                    </p>
+                    <p>
+                        <strong>3. Kebutuhan Panduan Roadmap IDP (Individual Development Plan) Tahun 1 – 5:</strong><br>
+                        Agar ASN tidak bingung memilih materi pelatihan dan tidak asal mengikuti diklat hanya demi menggugurkan kewajiban 20 JP, sistem dilengkapi panduan kurikulum berjenjang 1 s/d 5 tahun masa kerja yang dipandu oleh <em>Smart Course Recommendation Engine</em>.
+                    </p>
+                    <p>
+                        <strong>4. Kemandirian Aset Daerah &amp; Tanpa Ketergantungan Vendor (No Vendor Lock-In):</strong><br>
+                        Guna menjamin kedaulatan data dan efisiensi APBD jangka panjang, pengembangan diarahkan menggunakan teknologi open-source enterprise (Framework <strong>Laravel LTS</strong> &amp; <strong>MySQL 8.x</strong>) dengan <strong>penyerahan 100% hak kepemilikan kode sumber (*full source code*) kepada BKPSDM Kabupaten Berau</strong> tanpa biaya sewa per-user atau per-bulan.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION II -->
+        <section id="section-2" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB II</span>
+                    <h2 class="sec-heading-title">Dasar Hukum</h2>
+                </div>
+                <div class="content-prose">
+                    <ul class="check-list-ul">
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Undang-Undang Nomor 20 Tahun 2023 tentang Aparatur Sipil Negara.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Peraturan Presiden Nomor 16 Tahun 2018 tentang Pengadaan Barang/Jasa Pemerintah jo. Perpres Nomor 12 Tahun 2021.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Peraturan Presiden Nomor 95 Tahun 2018 tentang Sistem Pemerintahan Berbasis Elektronik (SPBE).</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Peraturan Lembaga Administrasi Negara (LAN) Nomor 10 Tahun 2018 tentang Pengembangan Kompetensi Pegawai Negeri Sipil beserta perubahannya.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">✓</span><div>Peraturan Daerah &amp; Peraturan Bupati Berau terkait Manajemen Kepegawaian dan Penyelenggaraan SPBE di Kabupaten Berau.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION III -->
+        <section id="section-3" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB III</span>
+                    <h2 class="sec-heading-title">Maksud &amp; Tujuan</h2>
+                </div>
+                <div class="content-prose">
+                    <p><strong>Maksud:</strong><br>
+                    Menyediakan dan menerapkan sistem perangkat lunak Learning Management System (LMS) OneLearning V3 yang mandiri, adaptif, dan andal sebagai wadah digital terpadu bagi seluruh aparatur di lingkungan Pemerintah Kabupaten Berau.</p>
+
+                    <p><strong>Tujuan Utama:</strong></p>
+                    <div class="tujuan-vertical-stack">
+                        <div class="tujuan-card">
+                            <div class="tujuan-card-icon">🏛️</div>
+                            <div class="tujuan-card-body">
+                                <div class="tujuan-card-title">Repositori Terpadu ASN Berau</div>
+                                <div class="tujuan-card-desc">Menyimpan dan mengabadikan seluruh rekam jejak portofolio pelatihan, akumulasi JP tahunan, dan sertifikat resmi seluruh ASN tanpa batas waktu.</div>
+                            </div>
+                        </div>
+                        <div class="tujuan-card">
+                            <div class="tujuan-card-icon">📜</div>
+                            <div class="tujuan-card-body">
+                                <div class="tujuan-card-title">Pengakuan Sertifikat Luar LMS</div>
+                                <div class="tujuan-card-desc">Mengakomodasi dan memverifikasi sertifikat seminar/diklat eksternal yang diikuti ASN agar resmi terakumulasi ke saldo 20 JP tahunan.</div>
+                            </div>
+                        </div>
+                        <div class="tujuan-card">
+                            <div class="tujuan-card-icon">🧭</div>
+                            <div class="tujuan-card-body">
+                                <div class="tujuan-card-title">Roadmap IDP Th 1 – 5 Terarah</div>
+                                <div class="tujuan-card-desc">Menuntun kompetensi ASN berjenjang dari tahun pertama hingga kelima dengan rekomendasi materi cerdas di beranda dashboard.</div>
+                            </div>
+                        </div>
+                        <div class="tujuan-card">
+                            <div class="tujuan-card-icon">🔒</div>
+                            <div class="tujuan-card-body">
+                                <div class="tujuan-card-title">Kepemilikan Penuh Source Code</div>
+                                <div class="tujuan-card-desc">100% master program dan pangkalan data diserahkan hak miliknya kepada BKPSDM Berau untuk diinstalasi di server mandiri Pemkab Berau.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION IV -->
+        <section id="section-4" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB IV</span>
+                    <h2 class="sec-heading-title">Target &amp; Sasaran</h2>
+                </div>
+                <div class="content-prose">
+                    <div class="feat-box feat-box-highlight" style="margin-bottom:20px;">
+                        <div class="feat-title" style="color:var(--primary); font-size:18px;">
+                            ⭐ Sasaran Kunci: Tempat Terpadu Penyimpanan Seluruh Pengembangan ASN
+                        </div>
+                        <p style="margin-top:8px; font-size:14px; line-height:1.65;">
+                            Terwujudnya pangkalan data tunggal terpadu (*single source of truth*) yang mengabadikan seluruh rekam jejak pengembangan aparatur di lingkungan Pemerintah Kabupaten Berau, yang meliputi:
+                        </p>
+                        <ul class="check-list-ul">
+                            <li class="check-list-item"><span class="check-icon-sq">✓</span><div><strong>Histori Perjalanan Belajar (*Learning Journey*):</strong> Catatan seluruh modul dan materi yang telah tuntas diselesaikan oleh pegawai.</div></li>
+                            <li class="check-list-item"><span class="check-icon-sq">✓</span><div><strong>Pencatatan Jam Pelajaran (JP):</strong> Akumulasi otomatis pemenuhan kewajiban minimal 20 JP/tahun sesuai amanat regulasi ASN.</div></li>
+                            <li class="check-list-item"><span class="check-icon-sq">✓</span><div><strong>Pengakuan Sertifikat Pelatihan/Pengembangan:</strong> Rekapitulasi sertifikat yang terbit dari internal LMS maupun pengakuan sertifikat luar daerah/eksternal yang disetujui BKPSDM.</div></li>
+                        </ul>
+                    </div>
+
+                    <div class="features-grid-2col">
+                        <div class="feat-box">
+                            <div class="feat-title">Kapasitas &amp; Konkurensi</div>
+                            <div class="feat-desc">Mampu melayani seluruh ASN di lingkungan Pemkab Berau dengan target daya dukung beban puncak (*concurrent users*) minimal <strong>1.000 pengguna aktif bersamaan</strong> tanpa degradasi sistem.</div>
+                        </div>
+                        <div class="feat-box">
+                            <div class="feat-title">Uptime Infrastruktur</div>
+                            <div class="feat-desc">Tingkat ketersediaan layanan (*uptime*) aplikasi terpasang di server Diskominfo Berau minimal <strong>99,5%</strong>.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION V -->
+        <section id="section-5" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB V</span>
+                    <h2 class="sec-heading-title">Sumber Pendanaan &amp; Harga Perkiraan Sendiri (HPS)</h2>
+                </div>
+                <div class="content-prose">
+                    <div class="table-responsive-box">
+                        <table class="kak-table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 260px;"><strong>Satuan Kerja Pengguna</strong></td>
+                                    <td><strong>Badan Kepegawaian, Pendidikan, dan Pelatihan (BKPSDM) Kabupaten Berau, Provinsi Kalimantan Timur</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sumber Pendanaan</strong></td>
+                                    <td>Anggaran Pendapatan dan Belanja Daerah (APBD) Kabupaten Berau Tahun Anggaran 2026</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kode Akun Kegiatan</strong></td>
+                                    <td><span style="font-family:var(--font-mono);">-</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Harga Perkiraan Sendiri (HPS)</strong></td>
+                                    <td>
+                                        <div style="font-size:20px; font-family:var(--font-mono); font-weight:800; color:var(--primary);">
+                                            Rp 100.000.000,-
+                                        </div>
+                                        <span style="font-size:12px; color:var(--text-muted);">
+                                            (Terbilang: Seratus Juta Rupiah) — Termasuk seluruh pajak yang berlaku (PPN/PPh), instalasi server, paket 9 modul ASN siap pakai, alih teknologi, dan garansi pemeliharaan 6 bulan.
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VI -->
+        <section id="section-6" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB VI</span>
+                    <h2 class="sec-heading-title">Ruang Lingkup Pekerjaan</h2>
+                </div>
+                <div class="content-prose">
+                    <p>Ruang lingkup pekerjaan pengembangan dan kustomisasi aplikasi OneLearning V3 untuk BKPSDM Berau mencakup modul-modul fungsional berikut:</p>
+
+                    <div class="features-grid-2col">
+                        <!-- Box 1 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 01</span>
+                            <div class="feat-title" style="margin-top:6px;">Manajemen Peran Berjenjang (RBAC)</div>
+                            <div class="feat-desc">
+                                Super Admin BKPSDM, Admin Verifikator OPD, <strong>Instruktur / Pemateri</strong>, dan Peserta Pegawai ASN dengan kewenangan akses terisolasi aman.
+                            </div>
+                        </div>
+
+                        <!-- Box 2 -->
+                        <div class="feat-box feat-box-highlight">
+                            <span class="sub-tag" style="background:rgba(16,185,129,0.15); color:var(--emerald);">MODUL 02 • UNGGULAN</span>
+                            <div class="feat-title" style="margin-top:6px;">Pencatatan 20 JP &amp; Pengakuan Sertifikat Luar</div>
+                            <div class="feat-desc">
+                                Akumulasi otomatis JP internal + alur verifikasi berkas sertifikat eksternal yang diunggah pegawai agar masuk ke saldo 20 JP tahunan.
+                            </div>
+                        </div>
+
+                        <!-- Box 3 -->
+                        <div class="feat-box feat-box-highlight">
+                            <span class="sub-tag" style="background:rgba(99,102,241,0.15); color:#818cf8;">MODUL 03 • UNGGULAN</span>
+                            <div class="feat-title" style="margin-top:6px;">Roadmap IDP Tahun 1–5 &amp; Rekomendasi Cerdas</div>
+                            <div class="feat-desc">
+                                Panduan kurikulum pengembangan tahunan ASN agar terarah + <strong>Smart Course Recommendation Engine</strong> yang mendeteksi materi relevan di katalog.
+                            </div>
+                        </div>
+
+                        <!-- Box 4 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 04</span>
+                            <div class="feat-title" style="margin-top:6px;">9 Modul Kompetensi Dasar ASN Siap Pakai</div>
+                            <div class="feat-desc">
+                                Paket konten siap pakai mencakup Core Values BerAKHLAK, Integritas, Etika Publik, Digitalisasi Layanan, dan Manajemen ASN langsung aktif di sistem.
+                            </div>
+                        </div>
+
+                        <!-- Box 5 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 05</span>
+                            <div class="feat-title" style="margin-top:6px;">Multi-Metode Daring &amp; Luring</div>
+                            <div class="feat-desc">
+                                E-course mandiri (video, PDF modul, teks), webinar tatap maya (Zoom), serta pelatihan luring dengan presensi digital berstempel waktu (*time-stamped*).
+                            </div>
+                        </div>
+
+                        <!-- Box 6 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 06</span>
+                            <div class="feat-title" style="margin-top:6px;">Certificate Builder &amp; Verifikasi QR Publik</div>
+                            <div class="feat-desc">
+                                Rancang tata letak sertifikat PDF dinamis di panel admin, penerbitan instan, dan halaman verifikasi publik tanpa login untuk validasi keaslian.
+                            </div>
+                        </div>
+
+                        <!-- Box 7 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 07</span>
+                            <div class="feat-title" style="margin-top:6px;">Panel Admin Pengelola Konten (No-Code CMS)</div>
+                            <div class="feat-desc">
+                                Manajemen banner pengumuman, pengatur urutan materi drag-and-drop, sambutan pimpinan, dan informasi kepegawaian mandiri tanpa koding.
+                            </div>
+                        </div>
+
+                        <!-- Box 8 -->
+                        <div class="feat-box">
+                            <span class="sub-tag">MODUL 08</span>
+                            <div class="feat-title" style="margin-top:6px;">Proteksi Data &amp; Soft Deletes</div>
+                            <div class="feat-desc">
+                                Materi yang diarsipkan/dihapus tidak akan merusak atau menghilangkan riwayat JP, transaksi, maupun kepesertaan ASN yang sudah terdaftar.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VII -->
+        <section id="section-7" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB VII</span>
+                    <h2 class="sec-heading-title">Keluaran / Deliverables Pekerjaan</h2>
+                </div>
+                <div class="content-prose">
+                    <ul class="check-list-ul">
+                        <li class="check-list-item"><span class="check-icon-sq">1</span><div><strong>Master Source Code Lengkap:</strong> Seluruh berkas kode sumber aplikasi tanpa enkripsi/obfuscation diserahkan ke repositori resmi BKPSDM Berau.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">2</span><div><strong>Pangkalan Data &amp; Skema:</strong> File dump database MySQL (.sql), kamus data, dan diagram relasi data (ERD).</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">3</span><div><strong>Paket 9 Modul ASN Siap Pakai:</strong> Konten digital interaktif terpasang aktif di sistem.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">4</span><div><strong>Dokumentasi Spesifikasi Teknis:</strong> Dokumen SRS (Software Requirements Specification) dan dokumentasi RESTful API.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">5</span><div><strong>Buku Petunjuk Operasional (User Manual):</strong> Panduan bergambar untuk Administrator BKPSDM, Instruktur/Pemateri, Verifikator, dan Pegawai ASN.</div></li>
+                        <li class="check-list-item"><span class="check-icon-sq">6</span><div><strong>Laporan &amp; Berita Acara:</strong> Laporan Uji Terima Pengguna (UAT), Berita Acara Pelatihan Alih Pengetahuan, dan Berita Acara Serah Terima Pekerjaan (BAST).</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VIII -->
+        <section id="section-8" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB VIII</span>
+                    <h2 class="sec-heading-title">Spesifikasi Kebutuhan Server (Rekomendasi)</h2>
+                </div>
+                <div class="content-prose">
+                    <div class="table-responsive-box">
+                        <table class="kak-table">
+                            <thead>
+                                <tr>
+                                    <th>Komponen Lingkungan</th>
+                                    <th>Spesifikasi Minimal</th>
+                                    <th>Rekomendasi Beban Tinggi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Sistem Operasi</strong></td>
+                                    <td>Linux Ubuntu Server 22.04 LTS (64-bit)</td>
+                                    <td>Ubuntu 22.04 LTS / Rocky Linux 9</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Web Server &amp; PHP</strong></td>
+                                    <td>Nginx + PHP 8.2 (PHP-FPM, OPCache)</td>
+                                    <td>Nginx + PHP 8.2+ dengan Redis Cache</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Basis Data</strong></td>
+                                    <td>MySQL 8.0 / MariaDB 10.6 (InnoDB)</td>
+                                    <td>MySQL 8.0 dengan Buffer Pool teroptimasi</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Processor &amp; RAM</strong></td>
+                                    <td>4 vCPU, 8 GB RAM</td>
+                                    <td>8 vCPU, 16 GB RAM (Beban Puncak)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kapasitas Penyimpanan</strong></td>
+                                    <td>100 GB SSD / NVMe Storage</td>
+                                    <td>200 GB+ SSD NVMe High-IOPS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION IX -->
+        <section id="section-9" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB IX</span>
+                    <h2 class="sec-heading-title">Kualifikasi Penyedia &amp; Tenaga Ahli</h2>
+                </div>
+                <div class="content-prose">
+                    <p><strong>1. Kualifikasi Penyedia Jasa:</strong><br>
+                    Memiliki NIB KBLI 62019 (Aktivitas Pemrograman Komputer Lainnya) / KBLI terkait piranti lunak, memiliki NPWP dan bukti pelunasan kewajiban pajak tahun terakhir, serta berpengalaman di bidang pengembangan aplikasi web.</p>
+
+                    <p style="margin-top:16px;"><strong>2. Kualifikasi Personel Tenaga Ahli:</strong></p>
+                    <div class="table-responsive-box">
+                        <table class="kak-table">
+                            <thead>
+                                <tr>
+                                    <th>Posisi Tenaga Ahli</th>
+                                    <th>Jml</th>
+                                    <th>Kualifikasi Pendidikan &amp; Pengalaman</th>
+                                    <th>Tugas &amp; Tanggung Jawab</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Project Manager</strong></td>
+                                    <td>1</td>
+                                    <td>S1 Teknik Informatika / Sistem Informasi, pengalaman min. 3 tahun</td>
+                                    <td>Memimpin pelaksanaan proyek, penjadwalan, koordinasi, dan mitigasi risiko.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>System Analyst</strong></td>
+                                    <td>1</td>
+                                    <td>S1 TI / Sistem Informasi, pengalaman min. 2 tahun</td>
+                                    <td>Analisis proses bisnis diklat ASN Berau, penyusunan SRS, dan skema database.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Backend Developer</strong></td>
+                                    <td>1</td>
+                                    <td>S1 TI / Komputer, pengalaman min. 2 tahun menguasai Laravel &amp; MySQL</td>
+                                    <td>Pembangunan arsitektur backend, logika bisnis 20 JP, API, dan keamanan sistem.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Frontend Developer</strong></td>
+                                    <td>1</td>
+                                    <td>S1 / D3 Komputer, pengalaman min. 2 tahun dalam responsive web</td>
+                                    <td>Pengembangan antarmuka responsif ramah ASN (desktop, tablet, mobile).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DevOps / Database Specialist</strong></td>
+                                    <td>1</td>
+                                    <td>S1 / D3 Komputer, pengalaman min. 2 tahun</td>
+                                    <td>Konfigurasi server Linux, database indexing, optimasi performa, dan backup.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION X -->
+        <section id="section-10" class="kak-section">
+            <div class="section-card">
+                <div class="section-header-box">
+                    <span class="sec-num-badge">BAB X</span>
+                    <h2 class="sec-heading-title">Jangka Waktu Pelaksanaan Pekerjaan (60 Hari Kalender)</h2>
+                </div>
+                <div class="content-prose">
+                    <p>
+                        Jangka waktu penyelesaian seluruh pekerjaan pengadaan, penyesuaian sistem, instalasi server, migrasi data, pengujian fungsi UAT, hingga pelatihan alih pengetahuan adalah selama <strong>60 (enam puluh) hari kalender</strong> terhitung sejak diterbitkannya Surat Perintah Mulai Kerja (SPMK).
+                    </p>
+
+                    <div class="timeline-progress-bar">
+                        <div class="t-step-box">
+                            <div class="t-step-num">TAHAP 01</div>
+                            <div class="t-step-title">Penyelarasan &amp; Desain</div>
+                            <div class="t-step-days">Hari ke 1 – 10</div>
+                        </div>
+                        <div class="t-step-box">
+                            <div class="t-step-num">TAHAP 02</div>
+                            <div class="t-step-title">Instalasi Server &amp; Backend</div>
+                            <div class="t-step-days">Hari ke 11 – 25</div>
+                        </div>
+                        <div class="t-step-box">
+                            <div class="t-step-num">TAHAP 03</div>
+                            <div class="t-step-title">Modul JP, IDP &amp; Sertifikat</div>
+                            <div class="t-step-days">Hari ke 26 – 40</div>
+                        </div>
+                        <div class="t-step-box">
+                            <div class="t-step-num">TAHAP 04</div>
+                            <div class="t-step-title">Uji Terima UAT &amp; Konten</div>
+                            <div class="t-step-days">Hari ke 41 – 50</div>
+                        </div>
+                        <div class="t-step-box">
+                            <div class="t-step-num">TAHAP 05</div>
+                            <div class="t-step-title">Pelatihan &amp; BAST</div>
+                            <div class="t-step-days">Hari ke 51 – 60</div>
+                        </div>
+                    </div>
+
+                    <div class="footer-sig-block">
+                        <div class="sig-card">
+                            <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">Ditetapkan di Tanjung Redeb, Berau</div>
+                            <div style="font-size:13px; font-weight:700; color:var(--text-main);">Pejabat Pembuat Komitmen (PPK)</div>
+                            <div class="sig-office-title" style="font-size:12px; color:var(--text-sub); margin-bottom:45px;">BKPSDM Kabupaten Berau</div>
+                            <div style="font-weight:700; color:var(--text-main); text-decoration:underline;">(......................................................)</div>
+                            <div style="font-size:11.5px; font-family:var(--font-mono); color:var(--text-muted); margin-top:4px;">NIP. ....................................................</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Floating Print Button -->
+    <div class="floating-action-fab">
+        <button class="nav-btn nav-btn-primary" onclick="window.print()" style="box-shadow: 0 10px 25px -5px rgba(56,189,248,0.5); padding:10px 18px; font-size:13px;">
+            🖨️ Cetak KAK / Simpan PDF
+        </button>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            if (newTheme === 'light') {
+                icon.textContent = '🌙';
+                text.textContent = 'Mode Gelap';
+            } else {
+                icon.textContent = '☀️';
+                text.textContent = 'Mode Terang';
+            }
+        }
+
+        // Active Scrollspy for Menu Navigation
+        window.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.nav-menu-item');
+            const sections = document.querySelectorAll('.kak-section');
+
+            function onScroll() {
+                let currentSectionId = '';
+                const scrollPos = window.scrollY + 140;
+
+                sections.forEach(sec => {
+                    const top = sec.offsetTop;
+                    const height = sec.offsetHeight;
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        currentSectionId = sec.getAttribute('id');
+                    }
+                });
+
+                if (currentSectionId) {
+                    navItems.forEach(item => {
+                        if (item.getAttribute('href') === '#' + currentSectionId) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3498 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneLearning V3 — Proposal Teknis Platform Pembelajaran Terpadu ASN & Instansi Publik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #030712;
+            --bg-canvas: #050b14;
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-glow: rgba(45, 212, 191, 0.35);
+
+            --teal-400: #2dd4bf;
+            --teal-500: #14b8a6;
+            --teal-600: #0d9488;
+            --cyan-400: #38bdf8;
+            --cyan-500: #0ea5e9;
+            --emerald-400: #34d399;
+            --emerald-500: #10b981;
+            --indigo-400: #818cf8;
+            --indigo-500: #6366f1;
+            --amber-400: #fbbf24;
+            
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-void);
+            color: var(--slate-200);
+            line-height: 1.65;
+            overflow-x: hidden;
+            selection-background-color: var(--teal-500);
+            selection-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: rgba(20, 184, 166, 0.3);
+            color: #5eead4;
+        }
+
+        /* Ambient Parallax Mesh Background */
+        .ambient-mesh {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.28;
+            will-change: transform;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .orb-1 {
+            top: -150px;
+            left: 20%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, #0d9488 0%, #0284c7 100%);
+        }
+
+        .orb-2 {
+            top: 40%;
+            right: -100px;
+            width: 750px;
+            height: 750px;
+            background: radial-gradient(circle, #4f46e5 0%, #0f766e 100%);
+            opacity: 0.22;
+        }
+
+        .orb-3 {
+            bottom: 10%;
+            left: -150px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, #059669 0%, #0284c7 100%);
+            opacity: 0.2;
+        }
+
+        /* Container Layout */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .container-fluid {
+            width: 100%;
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 0 18px;
+            }
+        }
+
+        /* Glass Top Navbar */
+        .glass-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: rgba(3, 7, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 16px;
+        }
+
+        .brand-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--teal-500), var(--cyan-500));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .brand-text-block {
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+        .brand-text-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .brand-text-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            color: var(--teal-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .nav-links-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+            flex-shrink: 1;
+            margin: 0 8px;
+        }
+
+        .nav-link-item a {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--slate-300);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+            padding: 4px 2px;
+            display: inline-block;
+        }
+
+        .nav-link-item a:hover {
+            color: #ffffff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1240px) {
+            .nav-links-menu {
+                gap: 10px;
+                margin: 0 4px;
+            }
+            .nav-link-item a {
+                font-size: 12px;
+            }
+            .theme-toggle-btn .theme-toggle-text {
+                display: none;
+            }
+            .theme-toggle-btn {
+                padding: 8px 10px;
+            }
+            .btn-ghost {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links-menu {
+                display: none;
+            }
+        }
+
+        .btn-glow-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--cyan-500) 100%);
+            color: #ffffff;
+            padding: 9px 20px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.35);
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .btn-glow-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(45, 212, 191, 0.5);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--slate-200);
+            padding: 9px 18px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--border-glass);
+            transition: all 0.25s ease;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal-400), var(--cyan-400), var(--emerald-400));
+            box-shadow: 0 0 10px var(--teal-400);
+            transition: width 0.05s linear;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 130px 0 80px;
+            position: relative;
+        }
+
+        .hero-badge-capsule {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(20, 184, 166, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.35);
+            margin-bottom: 24px;
+            box-shadow: 0 0 30px rgba(13, 148, 136, 0.15);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            box-shadow: 0 0 10px var(--emerald-400);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 14px var(--emerald-400); }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .hero-badge-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--teal-400);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-title-main {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(38px, 5.5vw, 68px);
+            font-weight: 900;
+            line-height: 1.18;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 24px;
+            max-width: 1050px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 10%, #99f6e4 45%, #38bdf8 80%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc-lead {
+            font-size: clamp(16px, 1.8vw, 20px);
+            color: var(--slate-300);
+            line-height: 1.65;
+            max-width: 860px;
+            margin-bottom: 36px;
+            font-weight: 400;
+        }
+
+        .hero-desc-lead strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .hero-cta-cluster {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Bento Metric Cards */
+        .hero-bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bento-metric-card {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-metric-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(45, 212, 191, 0.4);
+            background: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 12px 30px -10px rgba(13, 148, 136, 0.25);
+        }
+
+        .bento-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal-400), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bento-metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-icon-wrap {
+            font-size: 26px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .metric-value-huge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .metric-unit-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--teal-400);
+        }
+
+        .metric-label-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .metric-caption-text {
+            font-size: 12px;
+            color: var(--slate-400);
+            line-height: 1.5;
+        }
+
+        /* SECTION COMMON STYLES */
+        .section-block {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header-center {
+            text-align: center;
+            max-width: 820px;
+            margin: 0 auto 56px;
+        }
+
+        .section-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: rgba(13, 148, 136, 0.12);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            color: var(--teal-400);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 3.8vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-lead-text {
+            font-size: 16px;
+            color: var(--slate-300);
+            line-height: 1.7;
+        }
+
+        /* Bento Grid 3-Columns */
+        .bento-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bento-card-futuristic {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card-futuristic:hover {
+            transform: translateY(-5px);
+            border-color: rgba(45, 212, 191, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(13, 148, 136, 0.15);
+        }
+
+        .card-icon-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title-lg {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 750;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .card-body-desc {
+            font-size: 13.5px;
+            color: var(--slate-400);
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .card-tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tag-micro {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--slate-300);
+        }
+
+        .tag-micro-teal {
+            background: rgba(20, 184, 166, 0.1);
+            border-color: rgba(45, 212, 191, 0.3);
+            color: var(--teal-400);
+        }
+
+        /* BROWSER WINDOW MOCKUP */
+        .glass-window-frame {
+            background: #090e1a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(13, 148, 136, 0.12);
+            margin: 40px 0 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .glass-window-frame:hover {
+            border-color: rgba(45, 212, 191, 0.4);
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(45, 212, 191, 0.2);
+        }
+
+        .window-topbar {
+            height: 38px;
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .w-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .w-dot-red { background: #ef4444; }
+        .w-dot-yellow { background: #f59e0b; }
+        .w-dot-green { background: #10b981; }
+
+        .window-url-bar {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--slate-400);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .window-url-bar::before {
+            content: '🔒';
+            font-size: 9px;
+        }
+
+        .window-body-canvas {
+            position: relative;
+            background: #020617;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .window-screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .window-body-canvas:hover .window-screenshot-img {
+            transform: scale(1.015);
+        }
+
+        .zoom-hint-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .window-body-canvas:hover .zoom-hint-overlay {
+            opacity: 1;
+        }
+
+        .screenshot-caption-bar {
+            padding: 12px 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 12.5px;
+            color: var(--slate-300);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .screenshot-caption-bar strong {
+            color: #ffffff;
+        }
+
+        
+        /* IDP & Feature Highlight Cards */
+        .feature-highlight-card {
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-highlight-teal {
+            background: rgba(20, 184, 166, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+        }
+
+        .feature-highlight-indigo {
+            background: rgba(99, 102, 241, 0.09);
+            border: 1px solid rgba(129, 140, 248, 0.35);
+        }
+
+        .highlight-card-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #5eead4;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-card-title-indigo {
+            font-size: 16px;
+            font-weight: 800;
+            color: #c7d2fe;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-card-desc {
+            font-size: 13.5px;
+            color: var(--slate-200);
+            line-height: 1.62;
+            margin: 0 0 14px 0;
+        }
+
+        .idp-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.22);
+            border: 1px solid rgba(165, 180, 252, 0.4);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: #a5b4fc;
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+        }
+
+        .idp-sub-feature-box {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(129, 140, 248, 0.25);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+
+        .idp-sub-feature-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #e0e7ff;
+            margin-bottom: 6px;
+        }
+
+        .idp-timeline-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            border: 1px dashed rgba(165, 180, 252, 0.25);
+        }
+
+        .idp-step {
+            display: flex;
+            flex-direction: column;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            padding: 8px 10px;
+            border-radius: 8px;
+            flex: 1 1 calc(20% - 10px);
+            min-width: 105px;
+        }
+
+        .idp-step .step-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: #818cf8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .idp-step .step-label {
+            font-size: 11px;
+            color: var(--slate-300);
+            line-height: 1.35;
+            margin-top: 3px;
+        }
+
+        .idp-arrow {
+            color: #6366f1;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        @media (max-width: 640px) {
+            .idp-arrow { display: none; }
+            .idp-step { flex: 1 1 100%; }
+        }
+
+        /* FEATURE SHOWCASE SPLIT LAYOUT */
+        .feature-split-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .feature-split-layout.reverse-order {
+            grid-template-columns: 0.9fr 1.1fr;
+        }
+
+        @media (max-width: 1024px) {
+            .feature-split-layout,
+            .feature-split-layout.reverse-order {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        .feature-text-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-accent-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: rgba(45, 212, 191, 0.2);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -0.04em;
+        }
+
+        .feature-headline-lg {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(24px, 2.8vw, 36px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .feature-narrative {
+            font-size: 15px;
+            color: var(--slate-300);
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+
+        .feature-bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .feature-bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--slate-200);
+        }
+
+        .bullet-icon-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(20, 184, 166, 0.15);
+            border: 1px solid rgba(45, 212, 191, 0.4);
+            color: var(--teal-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* INTERACTIVE TABS */
+        .tab-switcher-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            color: var(--slate-400);
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .tab-btn.active-tab {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+            border-color: var(--teal-400);
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(20, 184, 166, 0.3);
+        }
+
+        .tab-content-panel {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .tab-content-panel.active-panel {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* INTERACTIVE ROI & JP CALCULATOR WIDGET */
+        .calc-widget-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(9, 14, 26, 0.95) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.35);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 50px rgba(13, 148, 136, 0.15);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-widget-card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .calc-grid-inner {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .calc-grid-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slider-control-group {
+            margin-bottom: 28px;
+        }
+
+        .slider-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .slider-label-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .slider-val-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--teal-400);
+        }
+
+        .modern-range-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .modern-range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal-400), var(--cyan-400));
+            cursor: pointer;
+            box-shadow: 0 0 14px var(--teal-400);
+            border: 2px solid #ffffff;
+        }
+
+        .calc-result-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .calc-result-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-result-tile {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px;
+            position: relative;
+        }
+
+        .calc-result-tile.highlighted {
+            background: rgba(20, 184, 166, 0.08);
+            border-color: rgba(45, 212, 191, 0.4);
+        }
+
+        .calc-tile-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--slate-400);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 4px;
+        }
+
+        .calc-tile-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .calc-tile-sub {
+            font-size: 11.5px;
+            color: var(--slate-400);
+            margin-top: 4px;
+        }
+
+        /* COMPARISON TABLE MATRIX */
+        .comparison-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            margin: 40px 0;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 780px;
+        }
+
+        .matrix-table th {
+            padding: 20px 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .matrix-table th.col-highlight {
+            background: rgba(20, 184, 166, 0.15);
+            border-top: 3px solid var(--teal-400);
+            color: var(--teal-400);
+        }
+
+        .matrix-table td {
+            padding: 16px 24px;
+            font-size: 13.5px;
+            color: var(--slate-300);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .matrix-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .matrix-table td.col-highlight {
+            background: rgba(20, 184, 166, 0.06);
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .check-pill-yes {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--emerald-400);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .check-pill-no {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #f87171;
+            font-size: 13px;
+        }
+
+        .check-pill-warn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--amber-400);
+            font-size: 13px;
+        }
+
+        /* PRICING PLANS */
+        .pricing-grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            max-width: 1040px;
+            margin: 40px auto;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-plan-box {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 38px 34px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pricing-plan-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(45, 212, 191, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .pricing-plan-box.featured-plan {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(13, 148, 136, 0.12) 100%);
+            border-color: var(--teal-400);
+            box-shadow: 0 0 50px rgba(20, 184, 166, 0.2);
+        }
+
+        .featured-badge-ribbon {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--teal-500), var(--cyan-500));
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+            white-space: nowrap;
+        }
+
+        .plan-title-head {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .plan-desc-sub {
+            font-size: 13.5px;
+            color: var(--slate-400);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .plan-price-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .plan-price-unit {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--slate-400);
+        }
+
+        .plan-features-checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 28px 0 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+        }
+
+        .plan-features-checklist li {
+            font-size: 13.5px;
+            color: var(--slate-200);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .plan-features-checklist li::before {
+            content: '✓';
+            color: var(--teal-400);
+            font-weight: 900;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* CONTACT CTA BANNER */
+        .contact-cta-section {
+            background: linear-gradient(135deg, #091a24 0%, #0d2e3b 50%, #081a28 100%);
+            border: 1px solid rgba(45, 212, 191, 0.35);
+            border-radius: 28px;
+            padding: 56px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 50px rgba(13, 148, 136, 0.2);
+            margin: 80px 0 40px;
+        }
+
+        @media (max-width: 640px) {
+            .contact-cta-section {
+                padding: 36px 20px;
+            }
+        }
+
+        .contact-cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.2) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .contact-author-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #5eead4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .contact-org-sub {
+            font-size: 14px;
+            color: var(--teal-400);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-pitch-lead {
+            font-size: 17px;
+            color: var(--slate-200);
+            max-width: 720px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
+        }
+
+        .contact-details-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .contact-item-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--slate-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-item-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 750;
+            color: #ffffff;
+        }
+
+        /* FOOTER */
+        .footer-site {
+            padding: 40px 0 60px;
+            border-top: 1px solid var(--border-glass);
+            margin-top: 60px;
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copy {
+            font-size: 12.5px;
+            color: var(--slate-500);
+        }
+
+        .footer-tags {
+            display: flex;
+            gap: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--slate-400);
+        }
+
+        /* MODAL LIGHTBOX FOR SCREENSHOT ZOOM */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.92);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background: #0b1120;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-backdrop.open .modal-content-wrapper {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 14px 20px;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 750;
+            color: #ffffff;
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(239, 68, 68, 0.8);
+        }
+
+        .modal-body-scroll {
+            overflow: auto;
+            max-height: calc(90vh - 60px);
+            background: #020617;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-img-full {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Micro Floating Quick Nav Bar (Right Bottom) */
+        .quick-float-panel {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 990;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            padding: 6px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .quick-float-btn {
+            background: none;
+            border: none;
+            color: var(--slate-300);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .quick-float-btn:hover {
+            color: var(--teal-400);
+        }
+
+        /* Utility animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+           LIGHT THEME STYLING
+           ========================================================= */
+        [data-theme="light"] {
+            --bg-void: #f8fafc;
+            --bg-canvas: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-hover: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-glass: rgba(15, 23, 42, 0.09);
+            --border-glass-glow: rgba(13, 148, 136, 0.35);
+
+            --teal-400: #0d9488;
+            --teal-500: #0f766e;
+            --teal-600: #115e59;
+            --cyan-400: #0284c7;
+            --cyan-500: #0369a1;
+            --emerald-400: #059669;
+            --emerald-500: #047857;
+            --indigo-400: #4f46e5;
+            --indigo-500: #4338ca;
+            --amber-400: #b45309;
+            
+            --slate-100: #0f172a;
+            --slate-200: #1e293b;
+            --slate-300: #334155;
+            --slate-400: #475569;
+            --slate-500: #64748b;
+            --slate-700: #cbd5e1;
+            --slate-800: #e2e8f0;
+            --slate-900: #f1f5f9;
+        }
+
+        [data-theme="light"] body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .ambient-grid {
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+        }
+
+        [data-theme="light"] .orb {
+            opacity: 0.12;
+            filter: blur(140px);
+        }
+
+                /* Glass Navbar in Light Theme */
+        [data-theme="light"] .glass-navbar,
+        [data-theme="light"] .glass-nav {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.09) !important;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        [data-theme="light"] .brand-text-title {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .brand-text-sub {
+            color: var(--teal-600) !important;
+        }
+
+        [data-theme="light"] .nav-link-item a {
+            color: #1e293b !important;
+            font-weight: 700 !important;
+        }
+
+        [data-theme="light"] .nav-link-item a:hover {
+            color: var(--teal-600) !important;
+        }
+
+        /* ALL HEADINGS & TITLES IN LIGHT THEME - CRYSTAL CLEAR DARK NAVY */
+        [data-theme="light"] h1,
+        [data-theme="light"] h2,
+        [data-theme="light"] h3,
+        [data-theme="light"] h4,
+        [data-theme="light"] h5,
+        [data-theme="light"] h6,
+        [data-theme="light"] .hero-title-main,
+        [data-theme="light"] .section-heading,
+        [data-theme="light"] .feature-headline-lg,
+        [data-theme="light"] .card-title-lg,
+        [data-theme="light"] .plan-title-head,
+        [data-theme="light"] .calc-card-title,
+        [data-theme="light"] .metric-value-huge,
+        [data-theme="light"] .metric-label-title,
+        [data-theme="light"] .mod-heading,
+        [data-theme="light"] .method-name,
+        [data-theme="light"] .format-title,
+        [data-theme="light"] .step-name,
+        [data-theme="light"] .slider-label-title,
+        [data-theme="light"] .calc-tile-num,
+        [data-theme="light"] .plan-price-tag,
+        [data-theme="light"] .modal-title-text,
+        [data-theme="light"] .screenshot-caption-bar strong {
+            color: #0f172a !important;
+        }
+
+        /* Feature Section & Accent Numbers in Light Theme */
+        [data-theme="light"] .feature-accent-num {
+            color: var(--teal-600) !important;
+            opacity: 0.85 !important;
+        }
+
+        [data-theme="light"] .feature-narrative {
+            color: #334155 !important;
+        }
+
+        [data-theme="light"] .feature-bullet-item {
+            color: #1e293b !important;
+        }
+
+        [data-theme="light"] .slider-val-badge {
+            color: #047857 !important;
+            font-weight: 800 !important;
+            font-size: 24px !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        /* Window Screenshot Frame in Light Theme */
+        [data-theme="light"] .glass-window-frame {
+            background: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.1) !important;
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        [data-theme="light"] .window-topbar {
+            background: #f1f5f9 !important;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+        }
+
+        [data-theme="light"] .window-url-bar {
+            background: #ffffff !important;
+            color: #334155 !important;
+            border: 1px solid rgba(15, 23, 42, 0.1) !important;
+        }
+
+        [data-theme="light"] .screenshot-caption-bar {
+            background: #f8fafc !important;
+            border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+            color: #334155 !important;
+        }
+
+        [data-theme="light"] .text-gradient {
+            background: linear-gradient(135deg, #0f172a 10%, #0d9488 50%, #0284c7 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="light"] .hero-desc-lead,
+        [data-theme="light"] .section-lead-text,
+        [data-theme="light"] .card-body-desc,
+        [data-theme="light"] .plan-desc-sub,
+        [data-theme="light"] .format-desc,
+        [data-theme="light"] .method-desc,
+        [data-theme="light"] .mod-desc,
+        [data-theme="light"] .metric-label {
+            color: #475569;
+        }
+
+        [data-theme="light"] .hero-desc-lead strong {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .hero-badge-capsule {
+            background: rgba(13, 148, 136, 0.08);
+            border: 1px solid rgba(13, 148, 136, 0.25);
+            box-shadow: none;
+        }
+
+        [data-theme="light"] .hero-badge-text {
+            color: #0f766e;
+        }
+
+        [data-theme="light"] .bento-metric-card,
+        [data-theme="light"] .bento-card-futuristic,
+        [data-theme="light"] .pricing-plan-box,
+        [data-theme="light"] .module-content-card,
+        [data-theme="light"] .calc-panel-card,
+        [data-theme="light"] .matrix-table,
+        [data-theme="light"] .method-card,
+        [data-theme="light"] .format-grid-card,
+        [data-theme="light"] .tracking-feature-item,
+        [data-theme="light"] .journey-timeline-item {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        [data-theme="light"] .bento-metric-card:hover,
+        [data-theme="light"] .bento-card-futuristic:hover,
+        [data-theme="light"] .method-card:hover,
+        [data-theme="light"] .format-grid-card:hover,
+        [data-theme="light"] .pricing-plan-box:hover {
+            background: #ffffff;
+            border-color: rgba(13, 148, 136, 0.4);
+            box-shadow: 0 16px 32px -8px rgba(13, 148, 136, 0.15);
+        }
+
+        [data-theme="light"] .featured-plan {
+            background: #ffffff;
+            border: 2px solid var(--teal-500);
+            box-shadow: 0 20px 45px -10px rgba(13, 148, 136, 0.2);
+        }
+
+        [data-theme="light"] .matrix-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+        }
+
+        [data-theme="light"] .matrix-table td {
+            color: #334155;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        [data-theme="light"] .matrix-table .col-highlight {
+            background: rgba(20, 184, 166, 0.07);
+        }
+
+        [data-theme="light"] .btn-ghost {
+            background: rgba(15, 23, 42, 0.05);
+            border: 1px solid rgba(15, 23, 42, 0.15);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.09);
+            border-color: rgba(15, 23, 42, 0.25);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .plan-features-checklist li {
+            color: #334155;
+        }
+
+        [data-theme="light"] .contact-cta-section {
+            background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%);
+            border: 1px solid rgba(13, 148, 136, 0.3);
+            box-shadow: 0 20px 50px -15px rgba(13, 148, 136, 0.18);
+        }
+
+        [data-theme="light"] .contact-cta-section h2 {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .contact-author-logo {
+            color: var(--teal-600);
+        }
+
+        [data-theme="light"] .contact-pitch-lead {
+            color: #475569;
+        }
+
+        [data-theme="light"] .contact-item-box {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        [data-theme="light"] .contact-item-label {
+            color: #64748b;
+        }
+
+        [data-theme="light"] .contact-item-val {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .footer-site {
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .footer-copy,
+        [data-theme="light"] .footer-tags {
+            color: #64748b;
+        }
+
+        [data-theme="light"] .footer-copy strong {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .quick-float-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .quick-float-btn {
+            color: #475569;
+        }
+
+        [data-theme="light"] .quick-float-btn:hover {
+            color: var(--teal-600);
+        }
+
+        [data-theme="light"] .calc-result-tile {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .calc-tile-label {
+            color: #64748b;
+        }
+
+        [data-theme="light"] .calc-slider-box {
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        [data-theme="light"] .calc-slider-label {
+            color: #334155;
+        }
+
+        [data-theme="light"] .module-tab-btn {
+            background: rgba(15, 23, 42, 0.04);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: #475569;
+        }
+
+        [data-theme="light"] .module-tab-btn:hover {
+            background: rgba(15, 23, 42, 0.08);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .module-tab-btn.is-active {
+            background: var(--teal-600);
+            border-color: var(--teal-600);
+            color: #ffffff;
+        }
+
+        [data-theme="light"] .curriculum-box {
+            background: #f8fafc;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .curr-item {
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            color: #334155;
+        }
+
+        [data-theme="light"] .modal-content-wrapper {
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="light"] .modal-header {
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .modal-title-text {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .modal-close-btn {
+            color: #64748b;
+        }
+
+        [data-theme="light"] .modal-close-btn:hover {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .tag-micro {
+            background: rgba(15, 23, 42, 0.04);
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            color: #334155;
+        }
+
+        [data-theme="light"] .tag-micro-teal {
+            background: rgba(13, 148, 136, 0.1);
+            border-color: rgba(13, 148, 136, 0.3);
+            color: #0f766e;
+        }
+
+        [data-theme="light"] .section-tag-pill {
+            background: rgba(13, 148, 136, 0.08);
+            border-color: rgba(13, 148, 136, 0.3);
+            color: #0f766e;
+        }
+
+        /* Theme Toggle Button Component */
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: var(--slate-200);
+            padding: 8px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--teal-400);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        [data-theme="light"] .theme-toggle-btn {
+            background: rgba(15, 23, 42, 0.05);
+            border-color: rgba(15, 23, 42, 0.14);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .theme-toggle-btn:hover {
+            background: rgba(15, 23, 42, 0.1);
+            border-color: var(--teal-600);
+            color: #0f172a;
+        }
+    
+        /* Smooth Scroll & Offset for Anchor Navigation */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+        section[id], [id] {
+            scroll-margin-top: 85px;
+        }
+
+        /* Plan Badges & Checklist Highlights */
+        .plan-sub-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+        .badge-basic {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .badge-pro {
+            background: rgba(20, 184, 166, 0.15);
+            border: 1px solid rgba(45, 212, 191, 0.4);
+        }
+        .plan-badge-text {
+            color: #5eead4;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+        }
+        .item-highlight-teal {
+            color: #5eead4;
+            font-weight: 700;
+        }
+        .item-highlight-blue {
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        /* LIGHT THEME OVERRIDES FOR GREEN & HIGHLIGHTS */
+        [data-theme="light"] {
+            --teal-400: #047857;
+            --teal-500: #065f46;
+            --teal-600: #064e3b;
+            --cyan-400: #0369a1;
+            --cyan-500: #075985;
+            --emerald-400: #047857;
+            --emerald-500: #065f46;
+            --border-glass-glow: rgba(4, 120, 87, 0.25);
+        }
+        [data-theme="light"] .badge-basic {
+            background: rgba(15, 23, 42, 0.05) !important;
+            border: 1px solid rgba(15, 23, 42, 0.12) !important;
+        }
+        [data-theme="light"] .badge-basic .plan-badge-text {
+            color: #047857 !important; /* Hijau gelap berwibawa */
+        }
+        [data-theme="light"] .badge-pro {
+            background: rgba(4, 120, 87, 0.09) !important;
+            border: 1px solid rgba(4, 120, 87, 0.28) !important;
+        }
+        [data-theme="light"] .badge-pro .plan-badge-text {
+            color: #047857 !important; /* Hijau gelap berwibawa */
+        }
+        [data-theme="light"] .item-highlight-teal {
+            color: #047857 !important; /* Hijau gelap kontras tinggi */
+        }
+        [data-theme="light"] .item-highlight-blue {
+            color: #0369a1 !important; /* Biru navy gelap kontras tinggi */
+        }
+        [data-theme="light"] .plan-features-checklist li::before {
+            color: #047857 !important; /* Checkmark hijau gelap */
+        }
+        [data-theme="light"] .tag-micro-teal,
+        [data-theme="light"] .section-tag-pill {
+            background: rgba(4, 120, 87, 0.08) !important;
+            border-color: rgba(4, 120, 87, 0.25) !important;
+            color: #047857 !important;
+        }
+        [data-theme="light"] .hero-badge-text {
+            color: #047857 !important;
+        }
+        [data-theme="light"] .hero-badge-capsule {
+            border-color: rgba(4, 120, 87, 0.25) !important;
+        }
+        [data-theme="light"] .status-dot {
+            background: #047857 !important;
+            box-shadow: 0 0 10px rgba(4, 120, 87, 0.4) !important;
+        }
+        [data-theme="light"] .featured-plan {
+            border-color: #047857 !important;
+            box-shadow: 0 20px 45px -10px rgba(4, 120, 87, 0.15) !important;
+        }
+        [data-theme="light"] .featured-badge-ribbon {
+            background: linear-gradient(135deg, #047857, #0284c7) !important;
+        }
+
+    
+        /* =========================================================
+           LIGHT THEME: CALCULATOR WIDGET CARD & INNER CONTROLS
+           ========================================================= */
+        [data-theme="light"] .calc-widget-card {
+            background: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.1) !important;
+            box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.08), 0 4px 16px -2px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        [data-theme="light"] .calc-widget-card::before {
+            background: radial-gradient(circle, rgba(4, 120, 87, 0.06) 0%, transparent 70%) !important;
+        }
+
+        [data-theme="light"] .slider-label-title {
+            color: #0f172a !important;
+            font-weight: 800 !important;
+            font-size: 15px !important;
+        }
+
+        [data-theme="light"] .slider-val-badge {
+            color: #047857 !important; /* Hijau gelap mantap */
+            font-weight: 900 !important;
+            font-size: 24px !important;
+        }
+
+        [data-theme="light"] .modern-range-slider {
+            background: #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .modern-range-slider::-webkit-slider-runnable-track {
+            background: #cbd5e1 !important;
+        }
+
+        [data-theme="light"] .modern-range-slider::-webkit-slider-thumb {
+            background: linear-gradient(135deg, #047857, #0284c7) !important;
+            box-shadow: 0 0 14px rgba(4, 120, 87, 0.5) !important;
+            border: 2.5px solid #ffffff !important;
+        }
+
+        [data-theme="light"] .slider-scale-labels,
+        [data-theme="light"] .slider-control-group > div:last-child {
+            color: #64748b !important;
+        }
+
+        [data-theme="light"] .slider-scale-labels span,
+        [data-theme="light"] .slider-control-group > div:last-child span {
+            color: #475569 !important;
+            font-weight: 700 !important;
+        }
+
+        [data-theme="light"] .calc-note-text,
+        [data-theme="light"] .calc-grid-inner > div:first-child > p {
+            color: #475569 !important;
+            line-height: 1.65 !important;
+        }
+
+        [data-theme="light"] .calc-result-tile {
+            background: #f8fafc !important;
+            border: 1px solid rgba(15, 23, 42, 0.08) !important;
+            box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.03) !important;
+        }
+
+        [data-theme="light"] .calc-result-tile.highlighted {
+            background: rgba(4, 120, 87, 0.06) !important;
+            border-color: rgba(4, 120, 87, 0.3) !important;
+        }
+
+        [data-theme="light"] .calc-tile-label {
+            color: #64748b !important;
+            font-weight: 700 !important;
+        }
+
+        [data-theme="light"] .calc-tile-num {
+            color: #0f172a !important;
+            font-weight: 900 !important;
+        }
+
+        [data-theme="light"] .calc-result-tile.highlighted .calc-tile-num {
+            color: #047857 !important;
+        }
+
+        [data-theme="light"] .calc-tile-sub {
+            color: #64748b !important;
+        }
+
+        /* Comparison Container in Light Theme */
+        [data-theme="light"] .comparison-container {
+            background: #ffffff !important;
+            border: 1px solid rgba(15, 23, 42, 0.09) !important;
+            box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        [data-theme="light"] .matrix-table td.col-highlight {
+            color: #0f172a !important;
+            font-weight: 700 !important;
+        }
+
+        [data-theme="light"] .matrix-table th.col-highlight {
+            background: rgba(4, 120, 87, 0.1) !important;
+            color: #047857 !important;
+            border-top: 3px solid #047857 !important;
+        }
+
+    
+        .feature-accent-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(20px, 2.2vw, 28px);
+            font-weight: 800;
+            color: var(--teal-400);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            line-height: 1.25;
+            text-transform: uppercase;
+        }
+        [data-theme="light"] .feature-accent-heading {
+            color: #047857 !important;
+        }
+
+    
+        /* Light mode for IDP & Feature highlight cards */
+        [data-theme="light"] .feature-highlight-teal {
+            background: #ffffff;
+            border: 1px solid rgba(13, 148, 136, 0.25);
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+        }
+
+        [data-theme="light"] .highlight-card-title {
+            color: #047857;
+        }
+
+        [data-theme="light"] .feature-highlight-indigo {
+            background: #ffffff;
+            border: 1px solid rgba(79, 70, 229, 0.25);
+            box-shadow: 0 4px 18px rgba(79, 70, 229, 0.06);
+        }
+
+        [data-theme="light"] .highlight-card-title-indigo {
+            color: #4338ca;
+        }
+
+        [data-theme="light"] .idp-badge-tag {
+            background: rgba(79, 70, 229, 0.08);
+            border-color: rgba(79, 70, 229, 0.28);
+            color: #4338ca;
+        }
+
+        [data-theme="light"] .idp-sub-feature-box {
+            background: #f8fafc;
+            border-color: rgba(79, 70, 229, 0.18);
+        }
+
+        [data-theme="light"] .idp-sub-feature-header {
+            color: #312e81;
+        }
+
+        [data-theme="light"] .idp-timeline-preview {
+            background: #f1f5f9;
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        [data-theme="light"] .idp-step {
+            background: #ffffff;
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        [data-theme="light"] .idp-step .step-num {
+            color: #4338ca;
+        }
+
+        [data-theme="light"] .idp-step .step-label {
+            color: #334155;
+        }
+
+        [data-theme="light"] .idp-arrow {
+            color: #4f46e5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Mesh & Parallax Background -->
+    <div class="ambient-mesh">
+        <div class="ambient-grid"></div>
+        <div class="orb orb-1" id="orb1"></div>
+        <div class="orb orb-2" id="orb2"></div>
+        <div class="orb orb-3" id="orb3"></div>
+    </div>
+
+    <!-- Glass Top Navigation Bar -->
+    <nav class="glass-navbar">
+        <div class="container-fluid">
+            <div class="nav-inner">
+                <a href="#hero" class="brand-logo-group">
+                    <div class="brand-mark">1L</div>
+                    <div class="brand-text-block">
+                        <span class="brand-text-title">OneLearning <span style="color:var(--teal-400); font-size:12px;">V3</span></span>
+                        <span class="brand-text-sub">ENTERPRISE LMS</span>
+                    </div>
+                </a>
+
+                <ul class="nav-links-menu">
+                    <li class="nav-link-item"><a href="#overview">Overview</a></li>
+                    <li class="nav-link-item"><a href="#asn-modules">Modul ASN</a></li>
+                    <li class="nav-link-item"><a href="#multi-methods">Metode</a></li>
+                    <li class="nav-link-item"><a href="#jp-tracking">Pelacakan JP</a></li>
+                    <li class="nav-link-item"><a href="#calculator">Simulasi JP</a></li>
+                    <li class="nav-link-item"><a href="#comparison">Komparasi</a></li>
+                    <li class="nav-link-item"><a href="#pricing">Pilihan Paket</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle-btn" id="navThemeToggle" onclick="toggleTheme()" title="Ganti Mode Terang / Gelap" aria-label="Toggle Light/Dark Theme">
+                        <span class="theme-toggle-icon">🌙</span>
+                        <span class="theme-toggle-text">Mode Gelap</span>
+                    </button>
+                    <a href="#contact" class="btn-ghost">Hubungi Kami</a>
+                    <a href="#pricing" class="btn-glow-primary">Konsultasi Paket</a>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Progress Bar -->
+        <div class="scroll-progress-line" id="scrollProgress"></div>
+    </nav>
+
+    <!-- MAIN FULL-SCREEN CONTENT WRAPPER -->
+    <div class="page-wrapper">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="hero" class="hero-section">
+            <div class="container-fluid">
+                
+                <div class="hero-badge-capsule reveal-on-scroll">
+                    <div class="status-dot"></div>
+                    <span class="hero-badge-text">PROPOSAL TEKNIS RESMI 2026 // ONELEARNING SUITE V3</span>
+                </div>
+
+                <h1 class="hero-title-main reveal-on-scroll">
+                    Satu Platform Mandiri.<br>
+                    <span class="text-gradient">Seluruh Kebutuhan Pelatihan</span><br>
+                    Terukur &amp; Tersertifikasi Resmi.
+                </h1>
+
+                <p class="hero-desc-lead reveal-on-scroll">
+                    Platform <strong>Learning Management System (LMS)</strong> digital terpadu untuk Pemerintah Daerah dan Instansi Publik. Menggabungkan <strong>e-course mandiri, live webinar, pelatihan tatap muka (luring)</strong>, presensi digital berstempel waktu, <strong>pengakuan sertifikat luar instansi</strong>, dan penerbitan sertifikat digital resmi berkode QR — 100% diinstal pada server instansi Anda.
+                </p>
+
+                <div class="hero-cta-cluster reveal-on-scroll">
+                    <a href="#overview" class="btn-glow-primary" style="padding:14px 28px; font-size:15px;">
+                        Jelajahi Fitur Lengkap
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </a>
+                    <a href="#calculator" class="btn-ghost" style="padding:14px 26px; font-size:15px;">
+                        Hitung Simulasi JP &amp; Anggaran
+                    </a>
+                </div>
+
+                <!-- 4 Bento Metric Cards -->
+                <div class="hero-bento-grid reveal-on-scroll">
+                    <div class="bento-metric-card">
+                        <div class="metric-icon-wrap">📚</div>
+                        <div class="metric-value-huge">9 <span class="metric-unit-text">Modul ASN</span></div>
+                        <div class="metric-label-title">Kompetensi Dasar Level 1</div>
+                        <p class="metric-caption-text">Materi siap pakai: Integritas, Kerjasama, Komunikasi, Pelayanan Publik, hingga Perekat Bangsa.</p>
+                    </div>
+
+                    <div class="bento-metric-card">
+                        <div class="metric-icon-wrap">⏱️</div>
+                        <div class="metric-value-huge">20+ <span class="metric-unit-text">JP / Tahun</span></div>
+                        <div class="metric-label-title">Pelacakan Jam Belajar Otomatis</div>
+                        <p class="metric-caption-text">Penghitungan jam pelajaran internal dan pengakuan sertifikat pelatihan luar daerah tersimpan permanen.</p>
+                    </div>
+
+                    <div class="bento-metric-card">
+                        <div class="metric-icon-wrap">🛡️</div>
+                        <div class="metric-value-huge">100% <span class="metric-unit-text">Validasi QR</span></div>
+                        <div class="metric-label-title">Sertifikat Digital Anti-Palsu</div>
+                        <p class="metric-caption-text">Penerbitan otomatis seusai lulus ujian, format PDF resmi, dan verifikasi instan via kamera smartphone.</p>
+                    </div>
+
+                    <div class="bento-metric-card">
+                        <div class="metric-icon-wrap">🏛️</div>
+                        <div class="metric-value-huge">Server <span class="metric-unit-text">Daerah</span></div>
+                        <div class="metric-label-title">Diskominfo Ready &amp; Mandiri</div>
+                        <p class="metric-caption-text">Data 100% di server instansi Anda tanpa biaya sewa pengguna berulang, dengan opsi free cloud VPS 1 tahun jika belum mempunyai server.</p>
+                    </div>
+                </div>
+
+                <!-- Large Fullscreen Hero Screenshot Preview -->
+                <div class="glass-window-frame reveal-on-scroll" style="margin-top:56px;">
+                    <div class="window-topbar">
+                        <div class="window-dots">
+                            <span class="w-dot w-dot-red"></span>
+                            <span class="w-dot w-dot-yellow"></span>
+                            <span class="w-dot w-dot-green"></span>
+                        </div>
+                        <div class="window-url-bar">https://lms.namadaerah.go.id/portal</div>
+                        <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--teal-400);">FULL KUSTOMISASI IDENTITAS</div>
+                    </div>
+                    <div class="window-body-canvas" onclick="openModal('proposal-assets/homepage.png', 'Halaman Utama Portal Pembelajaran OneLearning')">
+                        <img src="proposal-assets/homepage.png" alt="OneLearning Homepage" class="window-screenshot-img">
+                        <div class="zoom-hint-overlay">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                            Klik untuk Melihat Resolusi Penuh
+                        </div>
+                    </div>
+                    <div class="screenshot-caption-bar">
+                        <div><strong>Halaman Utama Portal Publik</strong> — Menampilkan banner visual promosi, daftar kategori pelatihan, rekomendasi materi, dan integrasi Single Sign-On (SSO).</div>
+                        <div class="tag-micro tag-micro-teal">TAMPILAN RESPONSIF</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 1: MENGENAL ONELEARNING ================= -->
+        <section id="overview" class="section-block">
+            <div class="container-fluid">
+                <div class="section-header-center reveal-on-scroll">
+                    <span class="section-tag-pill">01 / KONSEP &amp; FILOSOFI</span>
+                    <h2 class="section-heading">Mengenal OneLearning</h2>
+                    <p class="section-lead-text">
+                        OneLearning adalah sistem manajemen pembelajaran digital terpadu yang dirancang khusus untuk memenuhi alur kerja kedinasan pemerintah daerah dan lembaga publik di Indonesia. Lahir dari filosofi <strong>"Belajar Apapun, dalam Satu Aplikasi"</strong>, seluruh administrasi pembelajaran dan peningkatan kompetensi pegawai tersentralisasi tanpa berpindah sistem.
+                    </p>
+                </div>
+
+                <!-- 3 Core Pillars Bento -->
+                <div class="bento-grid-3 reveal-on-scroll">
+                    <div class="bento-card-futuristic">
+                        <div>
+                            <div class="card-icon-badge">🏛️</div>
+                            <h3 class="card-title-lg">Full Kustomisasi Identitas</h3>
+                            <p class="card-body-desc">
+                                Aplikasi LMS OneLearning dapat disesuaikan sepenuhnya (Full Kustomisasi) dengan identitas resmi lembaga atau instansi Anda. Seluruh tampilan portal diselaraskan mulai dari nama platform, logo resmi pemda/dinas/lembaga, skema warna tema, alamat website resmi (seperti <em>lms.namadaerah.go.id</em>), hingga format kop surat dan tanda tangan pada lembar sertifikat kelulusan.
+                            </p>
+                        </div>
+                        <div class="card-tags-list">
+                            <span class="tag-micro tag-micro-teal">Logo &amp; Nama Instansi</span>
+                            <span class="tag-micro">Domain Resmi .go.id</span>
+                            <span class="tag-micro">Format Kop Sertifikat</span>
+                        </div>
+                    </div>
+
+                    <div class="bento-card-futuristic">
+                        <div>
+                            <div class="card-icon-badge">📋</div>
+                            <h3 class="card-title-lg">Standar Nasional 20 JP/Tahun</h3>
+                            <p class="card-body-desc">
+                                Format Jam Pelajaran (JP), bobot materi, dan rekapitulasi diselaraskan dengan amanat pengembangan kompetensi ASN minimal 20 JP per tahun. Mempermudah BPSDM atau BKPSDM dalam pelaporan berkala.
+                            </p>
+                        </div>
+                        <div class="card-tags-list">
+                            <span class="tag-micro tag-micro-teal">Standar BKN</span>
+                            <span class="tag-micro">Rekap Otomatis</span>
+                            <span class="tag-micro">Laporan BPSDM</span>
+                        </div>
+                    </div>
+
+                    <div class="bento-card-futuristic">
+                        <div>
+                            <div class="card-icon-badge">⚡</div>
+                            <h3 class="card-title-lg">Ringan &amp; Akses Cepat</h3>
+                            <p class="card-body-desc">
+                                Dibangun dengan arsitektur web modern yang sangat efisien dan hemat bandwidth. Halaman terbuka instan bahkan pada koneksi internet terbatas dan mampu melayani ratusan pegawai serentak tanpa kendala server.
+                            </p>
+                        </div>
+                        <div class="card-tags-list">
+                            <span class="tag-micro tag-micro-teal">Hemat Kuota</span>
+                            <span class="tag-micro">Optimasi Mobile</span>
+                            <span class="tag-micro">Load Cepat</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: STANDAR KOMPETENSI ASN ================= -->
+        <section id="asn-modules" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="feature-split-layout">
+                    <div class="feature-text-block reveal-on-scroll">
+                        <span class="section-tag-pill">02 / KURIKULUM RESMI</span>
+                        <div class="feature-accent-num">09</div>
+                        <h2 class="feature-headline-lg">9 Modul Kompetensi Dasar ASN Level 1 Langsung Siap Pakai</h2>
+                        <p class="feature-narrative">
+                            Instansi tidak perlu menunggu waktu berbulan-bulan untuk memproduksi konten dari nol. Begitu sistem dipasang, OneLearning telah dilengkapi dengan 9 modul kompetensi dasar ASN Level 1 berstandar nasional yang langsung dapat dipelajari oleh seluruh aparatur:
+                        </p>
+
+                        <ul class="feature-bullet-list">
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Integritas &amp; Kerjasama:</strong> Fondasi etika ASN, transparansi, anti-korupsi, dan kolaborasi lintas OPD.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Komunikasi &amp; Pelayanan Publik:</strong> Standar komunikasi efektif kedinasan dan kepuasan masyarakat.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Orientasi pada Hasil &amp; Pengembangan Diri:</strong> Peningkatan produktivitas kerja dan adaptasi mandiri.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Mengelola Perubahan, Keputusan, &amp; Perekat Bangsa:</strong> Netralitas ASN, kepemimpinan adaptif, dan persatuan nasional.</div>
+                            </li>
+                        </ul>
+
+                        <div class="card-tags-list">
+                            <span class="tag-micro tag-micro-teal">Lulus Tes = Terbit Sertifikat</span>
+                            <span class="tag-micro">Bobot JP Terhitung</span>
+                            <span class="tag-micro">Materi Video &amp; PDF</span>
+                        </div>
+                    </div>
+
+                    <!-- Screenshot Catalog -->
+                    <div class="glass-window-frame reveal-on-scroll">
+                        <div class="window-topbar">
+                            <div class="window-dots">
+                                <span class="w-dot w-dot-red"></span>
+                                <span class="w-dot w-dot-yellow"></span>
+                                <span class="w-dot w-dot-green"></span>
+                            </div>
+                            <div class="window-url-bar">https://lms.namadaerah.go.id/catalog</div>
+                            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--teal-400);">KATALOG MODUL</div>
+                        </div>
+                        <div class="window-body-canvas" onclick="openModal('proposal-assets/catalog.png', 'Katalog Materi Kompetensi ASN Siap Pakai')">
+                            <img src="proposal-assets/catalog.png" alt="Katalog Materi ASN" class="window-screenshot-img">
+                            <div class="zoom-hint-overlay">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                Perbesar Tampilan Katalog
+                            </div>
+                        </div>
+                        <div class="screenshot-caption-bar">
+                            <div><strong>Katalog Pembelajaran</strong> — Menampilkan daftar modul ASN lengkap dengan jumlah JP, level kompetensi, dan status kemajuan.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: MULTI METODE & MULTI FORMAT ================= -->
+        <section id="multi-methods" class="section-block">
+            <div class="container-fluid">
+                <div class="section-header-center reveal-on-scroll">
+                    <span class="section-tag-pill">03 / METODE &amp; FORMAT</span>
+                    <h2 class="section-heading">Multi Metode &amp; Multi Format Pembelajaran</h2>
+                    <p class="section-lead-text">
+                        Satu platform fleksibel untuk mengakomodasi seluruh model pelatihan instansi — baik pembelajaran mandiri daring, webinar interaktif, hingga pelatihan luring tatap muka di kelas diklat.
+                    </p>
+                </div>
+
+                <!-- Interactive Tab Switcher -->
+                <div class="tab-switcher-wrapper reveal-on-scroll">
+                    <button class="tab-btn active-tab" onclick="switchTab('tab-daring')">
+                        <span>🌐</span> Metode Daring (Online)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-luring')">
+                        <span>🏛️</span> Metode Luring (Tatap Muka)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-formats')">
+                        <span>📦</span> 5 Format E-Course Interaktif
+                    </button>
+                </div>
+
+                <!-- Tab 1: Daring -->
+                <div id="tab-daring" class="tab-content-panel active-panel">
+                    <div class="feature-split-layout">
+                        <div class="glass-window-frame">
+                            <div class="window-topbar">
+                                <div class="window-dots">
+                                    <span class="w-dot w-dot-red"></span>
+                                    <span class="w-dot w-dot-yellow"></span>
+                                    <span class="w-dot w-dot-green"></span>
+                                </div>
+                                <div class="window-url-bar">https://lms.namadaerah.go.id/classroom/view</div>
+                                <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--cyan-400);">RUANG BELAJAR DARING</div>
+                            </div>
+                            <div class="window-body-canvas" onclick="openModal('proposal-assets/classroom.png', 'Ruang Belajar Daring (Classroom Player)')">
+                                <img src="proposal-assets/classroom.png" alt="Classroom Daring" class="window-screenshot-img">
+                                <div class="zoom-hint-overlay">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                    Lihat Player Interaktif
+                                </div>
+                            </div>
+                            <div class="screenshot-caption-bar">
+                                <div><strong>Ruang Belajar Interaktif</strong> — Pemutar video anti-skip, navigasi materi bertahap, dan download modul lampiran PDF.</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-text-block">
+                            <h3 class="feature-headline-lg">Pembelajaran Daring Mandiri &amp; Live Webinar</h3>
+                            <p class="feature-narrative">
+                                Memberikan keleluasaan bagi pegawai untuk belajar secara mandiri (self-paced) di sela jam kerja atau mengikuti sesi webinar resmi:
+                            </p>
+                            <ul class="feature-bullet-list">
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>E-Course Mandiri (24/7):</strong> Akses materi video, modul bacaan, dan quiz evaluasi kapan saja dari laptop maupun HP.</div>
+                                </li>
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>Live Webinar Terintegrasi:</strong> Jadwal webinar kedinasan lengkap dengan tautan Zoom/Meet, presensi kehadiran realtime, dan rekaman materi.</div>
+                                </li>
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>Riwayat Presensi Utuh:</strong> Peserta yang hadir pada webinar langsung terekam dan riwayat tidak akan terhapus saat webinar selesai.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Luring -->
+                <div id="tab-luring" class="tab-content-panel">
+                    <div class="feature-split-layout reverse-order">
+                        <div class="feature-text-block">
+                            <h3 class="feature-headline-lg">Pembelajaran Luring (Tatap Muka di Kelas)</h3>
+                            <p class="feature-narrative">
+                                OneLearning bukan hanya sistem e-learning daring, melainkan portal terpadu untuk mendokumentasikan kegiatan pelatihan tatap muka:
+                            </p>
+                            <ul class="feature-bullet-list">
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>In-Class Training &amp; Workshop:</strong> Pencatatan agenda pelatihan kelas, daftar peserta, dan materi bahan ajar narasumber.</div>
+                                </li>
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>Bimbingan Teknis (Bimtek) Kedinasan:</strong> Rekapitulasi absensi kehadiran sesi tatap muka dan distribusi sertifikat resmi setelah kegiatan usai.</div>
+                                </li>
+                                <li class="feature-bullet-item">
+                                    <span class="bullet-icon-check">✓</span>
+                                    <div><strong>Paperless &amp; Efisien:</strong> Tidak perlu lagi mencetak lembar absensi fisik atau membagikan sertifikat kertas yang berisiko hilang.</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-window-frame">
+                            <div class="window-topbar">
+                                <div class="window-dots">
+                                    <span class="w-dot w-dot-red"></span>
+                                    <span class="w-dot w-dot-yellow"></span>
+                                    <span class="w-dot w-dot-green"></span>
+                                </div>
+                                <div class="window-url-bar">https://lms.namadaerah.go.id/agenda</div>
+                                <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--emerald-400);">AGENDA PELATIHAN</div>
+                            </div>
+                            <div class="window-body-canvas" onclick="openModal('proposal-assets/agenda.png', 'Agenda Pelatihan Tatap Muka & Webinar')">
+                                <img src="proposal-assets/agenda.png" alt="Agenda Pelatihan Luring" class="window-screenshot-img">
+                                <div class="zoom-hint-overlay">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                    Perbesar Agenda Pelatihan
+                                </div>
+                            </div>
+                            <div class="screenshot-caption-bar">
+                                <div><strong>Jadwal &amp; Agenda Kegiatan</strong> — Pengelolaan jadwal pelatihan luring maupun daring dengan detail waktu, lokasi, dan kuota peserta.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Formats -->
+                <div id="tab-formats" class="tab-content-panel">
+                    <div class="bento-grid-3">
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">🎬</div>
+                            <h3 class="card-title-lg">Materi Video Edukasi</h3>
+                            <p class="card-body-desc">Mendukung streaming video berkualitas tinggi dengan proteksi agar peserta menyelesaikan durasi video sebelum melanjutkan.</p>
+                            <span class="tag-micro tag-micro-teal">YouTube, Vimeo, MP4 Direct</span>
+                        </div>
+
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">📄</div>
+                            <h3 class="card-title-lg">Dokumen PDF &amp; Slide</h3>
+                            <p class="card-body-desc">Viewer PDF terintegrasi langsung di dalam browser tanpa harus mengunduh berkas, memudahkan membaca modul regulasi.</p>
+                            <span class="tag-micro tag-micro-teal">In-Browser PDF Viewer</span>
+                        </div>
+
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">✍️</div>
+                            <h3 class="card-title-lg">Modul Tulisan &amp; Artikel</h3>
+                            <p class="card-body-desc">Format bacaan interaktif berbasis web dengan tipografi yang nyaman di mata, ideal untuk materi ringkas dan panduan teknis.</p>
+                            <span class="tag-micro tag-micro-teal">Rich-Text Article Reader</span>
+                        </div>
+
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">❓</div>
+                            <h3 class="card-title-lg">Quiz &amp; Evaluasi Pilihan Ganda</h3>
+                            <p class="card-body-desc">Ujian evaluasi otomatis dengan passing grade, batas waktu pengerjaan, dan acak urutan soal demi objektivitas penilaian.</p>
+                            <span class="tag-micro tag-micro-teal">Auto-Grading Realtime</span>
+                        </div>
+
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">📤</div>
+                            <h3 class="card-title-lg">Penugasan Berkas &amp; Resume</h3>
+                            <p class="card-body-desc">Fasilitas unggah tugas laporan atau lembar kerja (Word/PDF) yang dapat dinilai langsung oleh mentor atau widyaiswara.</p>
+                            <span class="tag-micro tag-micro-teal">File Upload &amp; Feedback</span>
+                        </div>
+
+                        <div class="bento-card-futuristic">
+                            <div class="card-icon-badge">📊</div>
+                            <h3 class="card-title-lg">Monitoring Kelulusan</h3>
+                            <p class="card-body-desc">Indikator persentase penyelesaian kurikulum yang mengunci sertifikat hingga seluruh format materi di atas tuntas.</p>
+                            <span class="tag-micro tag-micro-teal">100% Tuntas Syarat Lulus</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: PELACAKAN JP & PENGAKUAN SERTIFIKAT LUAR ================= -->
+        <section id="jp-tracking" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="feature-split-layout" style="align-items: start;">
+                    <div class="feature-text-block reveal-on-scroll">
+                        <span class="section-tag-pill">04 / JAM PELAJARAN &amp; ROADMAP KOMPETENSI (IDP)</span>
+                        <div class="feature-accent-num">20+</div>
+                        <h2 class="feature-headline-lg">Akumulasi Jam Pelajaran, Pengakuan Sertifikat &amp; Roadmap IDP</h2>
+                        <p class="feature-narrative">
+                            Setiap pegawai ASN dituntut memenuhi pengembangan kompetensi minimal 20 JP setiap tahun. OneLearning menyederhanakan pemantauan ini dengan sistem pencatatan cerdas yang tidak pernah hilang:
+                        </p>
+
+                        <div class="feature-highlight-card feature-highlight-teal">
+                            <h4 class="highlight-card-title">🌟 Pengakuan Sertifikat Luar LMS</h4>
+                            <p class="highlight-card-desc" style="margin-bottom:0;">
+                                Pegawai yang mengikuti seminar, webinar, atau bimtek di luar LMS daerah dapat mengunggah sertifikat eksternal mereka. Setelah diverifikasi admin BPSDM/BKPSDM, jam pelajaran tersebut <strong>otomatis terakumulasi ke dalam total JP tahunan pegawai</strong> dan masuk ke riwayat permanen.
+                            </p>
+                        </div>
+
+                        <!-- Highlight IDP & Smart Recommendation -->
+                        <div class="feature-highlight-card feature-highlight-indigo">
+                            <div class="idp-badge-tag">🎯 FITUR UNGGULAN PAKET PROFESSIONAL</div>
+                            <h4 class="highlight-card-title-indigo">Roadmap IDP (Individual Development Plan) Tahun 1 – 5</h4>
+                            <p class="highlight-card-desc">
+                                ASN seringkali bingung menentukan materi pelatihan apa yang harus diambil setiap tahunnya, sehingga cenderung asal memilih kursus demi menggugurkan kewajiban 20 JP. OneLearning menghadirkan panduan <strong>IDP (Individual Development Plan) terstruktur dari Tahun Pertama hingga Kelima</strong> sebagai kompas kurikulum pengembangan yang jelas dan berkesinambungan.
+                            </p>
+                            
+                            <div class="idp-sub-feature-box">
+                                <div class="idp-sub-feature-header">
+                                    <span>🤖</span>
+                                    <span>Smart Course Recommendation Engine</span>
+                                </div>
+                                <p style="margin:0; font-size:12.8px; color:var(--slate-300); line-height:1.55;">
+                                    Ketika katalog LMS memiliki materi pelatihan yang judul atau kompetensinya sama/mirip dengan target kurikulum IDP ASN di tahun berjalan, <strong>sistem secara otomatis merekomendasikan kursus tersebut di dashboard pegawai</strong>. ASN tidak lagi bingung mencari pelatihan dan langsung diarahkan ke materi yang tepat sasaran.
+                                </p>
+                            </div>
+
+                            <div class="idp-timeline-preview">
+                                <div class="idp-step"><span class="step-num">Th 1</span><span class="step-label">Orientasi &amp; Core Values BerAKHLAK</span></div>
+                                <div class="idp-arrow">➔</div>
+                                <div class="idp-step"><span class="step-num">Th 2</span><span class="step-label">Pelayanan Publik &amp; Literasi Digital</span></div>
+                                <div class="idp-arrow">➔</div>
+                                <div class="idp-step"><span class="step-num">Th 3</span><span class="step-label">Kompetensi Teknis &amp; Analisis Data</span></div>
+                                <div class="idp-arrow">➔</div>
+                                <div class="idp-step"><span class="step-num">Th 4</span><span class="step-label">Kolaborasi &amp; Koordinasi Antar OPD</span></div>
+                                <div class="idp-arrow">➔</div>
+                                <div class="idp-step"><span class="step-num">Th 5</span><span class="step-label">Kepemimpinan &amp; Inovasi Kebijakan</span></div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <!-- Screenshot User Detail / Dashboard & Keunggulan -->
+                    <div class="reveal-on-scroll">
+                        <div class="glass-window-frame">
+                            <div class="window-topbar">
+                                <div class="window-dots">
+                                    <span class="w-dot w-dot-red"></span>
+                                    <span class="w-dot w-dot-yellow"></span>
+                                    <span class="w-dot w-dot-green"></span>
+                                </div>
+                                <div class="window-url-bar">https://lms.namadaerah.go.id/profile/learning-journey</div>
+                                <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--teal-400);">PROFIL BELAJAR PEGAWAI</div>
+                            </div>
+                            <div class="window-body-canvas" onclick="openModal('proposal-assets/user_detail.png', 'Profil Perjalanan Belajar Pegawai &amp; Riwayat JP')">
+                                <img src="proposal-assets/user_detail.png" alt="Profil Perjalanan Belajar User" class="window-screenshot-img">
+                                <div class="zoom-hint-overlay">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                    Perbesar Profil Perjalanan Belajar
+                                </div>
+                            </div>
+                            <div class="screenshot-caption-bar">
+                                <div><strong>Profil Perjalanan Belajar User</strong> — Menampilkan histori modul yang diselesaikan, akumulasi total JP tahunan, dan daftar sertifikat resmi.</div>
+                            </div>
+                        </div>
+
+                        <!-- Poin Keunggulan di Bawah Gambar -->
+                        <ul class="feature-bullet-list" style="margin-top: 24px; margin-bottom: 0;">
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Profile Perjalanan Belajar Pegawai:</strong> Seluruh riwayat pelatihan dan perolehan JP tersimpan permanen sepanjang masa kerja ASN di daerah.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Bebas Unduh Sertifikat PDF Kapan Saja:</strong> Arsip sertifikat tersimpan aman di server dan dapat diunduh kembali setiap saat tanpa batas waktu.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Rekapitulasi BPSDM Otomatis:</strong> Admin dapat mengekspor rekap pencapaian JP seluruh OPD ke format Excel/PDF hanya dengan satu klik.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5: PRESENSI DIGITAL & SERTIFIKAT QR ================= -->
+        <section id="cert-presensi" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="feature-split-layout reverse-order">
+                    <!-- Screenshot Presensi -->
+                    <div class="glass-window-frame reveal-on-scroll">
+                        <div class="window-topbar">
+                            <div class="window-dots">
+                                <span class="w-dot w-dot-red"></span>
+                                <span class="w-dot w-dot-yellow"></span>
+                                <span class="w-dot w-dot-green"></span>
+                            </div>
+                            <div class="window-url-bar">https://lms.namadaerah.go.id/attendance/verify</div>
+                            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--cyan-400);">PRESENSI DIGITAL</div>
+                        </div>
+                        <div class="window-body-canvas" onclick="openModal('proposal-assets/presensi.png', 'Sistem Presensi Digital Berstempel Waktu')">
+                            <img src="proposal-assets/presensi.png" alt="Presensi Digital" class="window-screenshot-img">
+                            <div class="zoom-hint-overlay">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                Perbesar Sistem Presensi
+                            </div>
+                        </div>
+                        <div class="screenshot-caption-bar">
+                            <div><strong>Presensi Berstempel Waktu</strong> — Bukti kehadiran terverifikasi dengan stempel waktu detik dan kode sesi unik anti-manipulasi.</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-text-block reveal-on-scroll">
+                        <span class="section-tag-pill">05 / KEABSAHAN DATA</span>
+                        <div class="feature-accent-num">QR</div>
+                        <h2 class="feature-headline-lg">Presensi Berstempel Waktu &amp; Sertifikat Digital Kode QR</h2>
+                        <p class="feature-narrative">
+                            Menjamin transparansi dan integritas pelaksanaan pelatihan di lingkungan pemerintahan:
+                        </p>
+
+                        <ul class="feature-bullet-list">
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Presensi Digital Anti-Titip Absen:</strong> Menggunakan kode dinamis dan stempel waktu akurat untuk setiap sesi pelatihan daring maupun tatap muka.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Sertifikat Digital Otomatis:</strong> Begitu syarat tuntas kelulusan tercapai, sistem langsung mencetak lembar sertifikat resmi berformat PDF vektor resolusi tinggi.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Verifikasi Instan via Kode QR:</strong> Setiap sertifikat memuat kode QR unik. Saat dipindai kamera HP, browser langsung mengarahkan ke halaman validasi resmi server instansi yang membuktikan keaslian dokumen.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Showcase Certificate Screenshot -->
+                <div class="glass-window-frame reveal-on-scroll" style="margin-top:40px;">
+                    <div class="window-topbar">
+                        <div class="window-dots">
+                            <span class="w-dot w-dot-red"></span>
+                            <span class="w-dot w-dot-yellow"></span>
+                            <span class="w-dot w-dot-green"></span>
+                        </div>
+                        <div class="window-url-bar">https://lms.namadaerah.go.id/certificates/verify/CERT-2026-ASN-0921</div>
+                        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--emerald-400);">SERTIFIKAT RESMI QR</div>
+                    </div>
+                    <div class="window-body-canvas" onclick="openModal('proposal-assets/certificate.png', 'Lembar Sertifikat Digital Resmi dengan Kode QR Validasi')">
+                        <img src="proposal-assets/certificate.png" alt="Sertifikat Digital QR" class="window-screenshot-img">
+                        <div class="zoom-hint-overlay">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                            Lihat Contoh Sertifikat
+                        </div>
+                    </div>
+                    <div class="screenshot-caption-bar">
+                        <div><strong>Lembar Sertifikat Digital Resmi</strong> — Dilengkapi kop instansi, tanda tangan elektronik/pejabat, rincian JP, dan kode QR verifikasi publik.</div>
+                        <div class="tag-micro tag-micro-teal">VALIDASI REALTIME</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6: CMS PEMBUAT KURSUS & BANNER ================= -->
+        <section id="cms-builder" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="feature-split-layout">
+                    <div class="feature-text-block reveal-on-scroll">
+                        <span class="section-tag-pill">06 / PENGELOLAAN MUDAH</span>
+                        <div class="feature-accent-heading">PANEL ADMIN PENGELOLA KONTEN</div>
+                        <h2 class="feature-headline-lg">Pembuat Kursus Visual &amp; Manajemen Banner Promosi</h2>
+                        <p class="feature-narrative">
+                            Pengelola pelatihan di instansi dapat secara mandiri menambah materi pelatihan baru, menyusun kurikulum, dan memperbarui informasi beranda tanpa perlu keahlian koding teknis:
+                        </p>
+
+                        <ul class="feature-bullet-list">
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Course Builder Praktis:</strong> Tambah judul bab, unggah video, upload modul PDF, buat quiz pilihan ganda, dan atur syarat kelulusan dengan antarmuka yang sangat mudah dipahami.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Manajemen Banner Promosi Visual:</strong> Ganti banner slider pengumuman di halaman depan untuk menyosialisasikan bimtek atau webinar terbaru secara instan.</div>
+                            </li>
+                            <li class="feature-bullet-item">
+                                <span class="bullet-icon-check">✓</span>
+                                <div><strong>Kendali Hak Akses Berjenjang:</strong> Tersedia tingkatan peran akun: Super Admin Diskominfo, Pengelola BPSDM, Instruktur / Widyaiswara, dan Peserta Pegawai.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Screenshot Admin Sliders -->
+                    <div class="glass-window-frame reveal-on-scroll">
+                        <div class="window-topbar">
+                            <div class="window-dots">
+                                <span class="w-dot w-dot-red"></span>
+                                <span class="w-dot w-dot-yellow"></span>
+                                <span class="w-dot w-dot-green"></span>
+                            </div>
+                            <div class="window-url-bar">https://lms.namadaerah.go.id/admin/sliders</div>
+                            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--teal-400);">PANEL ADMIN KONTEN</div>
+                        </div>
+                        <div class="window-body-canvas" onclick="openModal('proposal-assets/admin_sliders.png', 'Panel Admin Pengelolaan Banner & Urutan Informasi')">
+                            <img src="proposal-assets/admin_sliders.png" alt="Panel Admin Banner Pengelola Konten" class="window-screenshot-img">
+                            <div class="zoom-hint-overlay">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                                Perbesar Panel Admin
+                            </div>
+                        </div>
+                        <div class="screenshot-caption-bar">
+                            <div><strong>Panel Pengelolaan Banner Promosi</strong> — Memudahkan admin mengunggah materi visual sosialisasi dan mengaktifkan pengumuman diklat.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 7: INTERACTIVE JP & ROI CALCULATOR ================= -->
+        <section id="calculator" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="section-header-center reveal-on-scroll">
+                    <span class="section-tag-pill">07 / SIMULASI &amp; EFISIENSI ANGGARAN</span>
+                    <h2 class="section-heading">Kalkulator Simulasi JP &amp; Efisiensi Diklat</h2>
+                    <p class="section-lead-text">
+                        Geser jumlah pegawai di daerah Anda untuk melihat estimasi total Jam Pelajaran yang tercapai serta efisiensi anggaran bila dikombinasikan dengan sistem digital OneLearning.
+                    </p>
+                </div>
+
+                <!-- Calculator Widget Card -->
+                <div class="calc-widget-card reveal-on-scroll">
+                    <div class="calc-grid-inner">
+                        <div>
+                            <div class="slider-control-group">
+                                <div class="slider-header-flex">
+                                    <span class="slider-label-title">Jumlah Pegawai ASN di Daerah:</span>
+                                    <span class="slider-val-badge" id="asnCountDisplay">500 Orang</span>
+                                </div>
+                                <input type="range" min="50" max="5000" step="50" value="500" class="modern-range-slider" id="asnSlider" oninput="updateCalculator(this.value)">
+                                <div class="slider-scale-labels" style="display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:var(--slate-500); font-family:'JetBrains Mono',monospace;">
+                                    <span>50 ASN</span>
+                                    <span>2.500 ASN</span>
+                                    <span>5.000 ASN</span>
+                                </div>
+                            </div>
+
+                            <p class="calc-note-text" style="font-size:13px; color:var(--slate-400); line-height:1.65;">
+                                *Estimasi didasarkan pada target pemenuhan minimal 20 JP/tahun per pegawai ASN dan rata-rata penghematan biaya logistik, ATK, modul cetak, dan akomodasi kegiatan luring.
+                            </p>
+                        </div>
+
+                        <div class="calc-result-box">
+                            <div class="calc-result-tile highlighted">
+                                <div class="calc-tile-label">Target Jam Pelajaran (JP)</div>
+                                <div class="calc-tile-num" id="totalJpDisplay">10.000 JP</div>
+                                <div class="calc-tile-sub">Total akumulasi jam belajar tahunan yang terfasilitasi sistem</div>
+                            </div>
+
+                            <div class="calc-result-tile">
+                                <div class="calc-tile-label">Sertifikat Digital Terbit</div>
+                                <div class="calc-tile-num" id="certCountDisplay">4.500 Lembar</div>
+                                <div class="calc-tile-sub">Otomatis terbit dengan QR Code tanpa biaya cetak kertas</div>
+                            </div>
+
+                            <div class="calc-result-tile">
+                                <div class="calc-tile-label">Waktu Rekap Administrasi</div>
+                                <div class="calc-tile-num" style="color:var(--emerald-400);">Instan (1 Klik)</div>
+                                <div class="calc-tile-sub">Menggantikan proses rekap manual berkas fisik berhari-hari</div>
+                            </div>
+
+                            <div class="calc-result-tile highlighted">
+                                <div class="calc-tile-label">Estimasi Efisiensi Anggaran</div>
+                                <div class="calc-tile-num" id="costSavingDisplay" style="color:var(--teal-400);">Rp 250 Juta+</div>
+                                <div class="calc-tile-sub">Penghematan biaya konsumsi, sewa gedung &amp; cetak berkas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 8: PERBANDINGAN FITUR ================= -->
+        <section id="comparison" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="section-header-center reveal-on-scroll">
+                    <span class="section-tag-pill">08 / ANALISIS KEUNGGULAN</span>
+                    <h2 class="section-heading">Perbandingan OneLearning vs Solusi Lain</h2>
+                    <p class="section-lead-text">
+                        Mengapa OneLearning jauh lebih tepat untuk kebutuhan Pemerintah Daerah dibandingkan LMS konvensional kampus atau platform vendor sewaan.
+                    </p>
+                </div>
+
+                <!-- Matrix Comparison Table -->
+                <div class="comparison-container reveal-on-scroll">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Fitur &amp; Karakteristik Sistem</th>
+                                <th class="col-highlight">🌟 OneLearning (V3)</th>
+                                <th>Moodle Konvensional</th>
+                                <th>Platform Vendor SaaS Sewa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>9 Modul Kompetensi Dasar ASN Siap Pakai</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Langsung Tersedia</span></td>
+                                <td><span class="check-pill-no">✗ Harus Buat Sendiri</span></td>
+                                <td><span class="check-pill-warn">⚠️ Materi Korporat Swasta</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pencatatan Jam Pelajaran (JP) Otomatis 20 JP/Thn</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Sesuai Regulasi ASN</span></td>
+                                <td><span class="check-pill-no">✗ Perlu Plugin Rumit</span></td>
+                                <td><span class="check-pill-no">✗ Tidak Ada Konsep JP</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pengakuan Sertifikat Luar LMS ke JP Tahunan</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Fitur Bawaan Permanen</span></td>
+                                <td><span class="check-pill-no">✗ Tidak Tersedia</span></td>
+                                <td><span class="check-pill-no">✗ Tidak Tersedia</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Roadmap IDP (Individual Development Plan) ASN Th 1–5 &amp; Rekomendasi Cerdas</strong><br>
+                                    <span style="font-size:12px; color:var(--slate-400);">Kurikulum pengembangan terstruktur th 1–5 agar ASN tidak bingung memilih diklat + Auto-Matcher materi</span>
+                                </td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Terintegrasi Penuh (Paket Pro)</span></td>
+                                <td><span class="check-pill-no">✗ Tidak Tersedia</span></td>
+                                <td><span class="check-pill-no">✗ Tidak Sesuai Pola ASN</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Presensi Berstempel Waktu &amp; Live Webinar</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Terpadu Daring &amp; Luring</span></td>
+                                <td><span class="check-pill-warn">⚠️ Terbatas</span></td>
+                                <td><span class="check-pill-warn">⚠️ Biaya Tambahan</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sertifikat Digital Otomatis + Verifikasi QR Publik</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Otomatis PDF Resmi</span></td>
+                                <td><span class="check-pill-warn">⚠️ Perlu Kustomisasi</span></td>
+                                <td><span class="check-pill-yes">✓ Ada (Format Standar)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kustomisasi Identitas Lembaga / Instansi</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Full Kustomisasi</span></td>
+                                <td><span class="check-pill-yes">✓ Bisa Kustomisasi</span></td>
+                                <td><span class="check-pill-no">✗ Terkunci Merek Vendor</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lokasi Penyimpanan Data &amp; Server</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Server Pemda / Mandiri</span></td>
+                                <td class="check-pill-yes">✓ Server Sendiri</td>
+                                <td><span class="check-pill-no">✗ Server Milik Vendor</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model Biaya &amp; Investasi</strong></td>
+                                <td class="col-highlight"><span class="check-pill-yes">✓ Investasi Mandiri 1x</span></td>
+                                <td><span class="check-pill-warn">⚠️ Biaya Setup + Maintenance</span></td>
+                                <td><span class="check-pill-no">✗ Sewa Per User / Bulan</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 9: PAKET LAYANAN ================= -->
+        <section id="pricing" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="section-header-center reveal-on-scroll">
+                    <span class="section-tag-pill">09 / PILIHAN PAKET</span>
+                    <h2 class="section-heading">Pilihan Paket Layanan &amp; Penawaran Resmi</h2>
+                    <p class="section-lead-text">
+                        Pilihan paket fleksibel yang dapat disesuaikan dengan infrastruktur server dan kebutuhan lembaga atau instansi Anda.
+                    </p>
+                </div>
+
+                <div class="pricing-grid-cards reveal-on-scroll">
+                    <!-- Paket Basic -->
+                    <div class="pricing-plan-box">
+                        <div>
+                            <div class="plan-title-head">Paket Basic</div>
+                            <p class="plan-desc-sub">Solusi implementasi mandiri pada infrastruktur server atau data center internal yang telah dimiliki instansi Anda tanpa biaya tahunan berulang.</p>
+                            
+                            <div class="plan-sub-badge badge-basic">
+                                <span class="plan-badge-text">PENAWARAN RESMI INSTANSI</span>
+                            </div>
+
+                            <ul class="plan-features-checklist">
+                                <li><span>Instalasi source code lengkap di server instansi / data center Pemda</span></li>
+                                <li><span><strong>Hanya Metode Pembelajaran Daring</strong> (E-Course mandiri internal instansi)</span></li>
+                                <li><span>Multi Format Materi Daring (Video, PDF, Artikel, Kuis, Penugasan)</span></li>
+                                <li><span>Presensi Digital Berstempel Waktu (Khusus Pembelajaran Daring)</span></li>
+                                <li><span>Penerbitan Sertifikat PDF Otomatis Berkode QR untuk Kursus Internal LMS</span></li>
+                                <li><span>Pencatatan Jam Pelajaran (JP) Otomatis dari Kursus Internal LMS</span></li>
+                                <li><span>Full Kustomisasi: Disesuaikan dengan identitas resmi lembaga atau instansi (Logo, Nama &amp; Domain)</span></li>
+                                <li><span>Garansi teknis &amp; pemeliharaan sistem selama 6 bulan</span></li>
+                                <li><span>Pelatihan admin pengelola &amp; tim teknis (Online 2 sesi)</span></li>
+                                <li style="opacity:0.8; font-size:12px; border-top:1px dashed rgba(255,255,255,0.12); padding-top:8px; margin-top:8px;">
+                                    <span><em>* Catatan: Belum termasuk bonus materi 9 Modul ASN, metode luring/in-class, fitur pengakuan sertifikat luar LMS, dan dukungan roadmap IDP Tahun 1–5.</em></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="#contact" class="btn-ghost" style="text-align:center; justify-content:center; padding:13px 24px;">
+                            Konsultasi Paket Basic
+                        </a>
+                    </div>
+
+                    <!-- Paket Professional: Featured -->
+                    <div class="pricing-plan-box featured-plan">
+                        <div class="featured-badge-ribbon">⭐ PAKET REKOMENDASI LENGKAP</div>
+                        <div>
+                            <div class="plan-title-head">Paket Professional</div>
+                            <p class="plan-desc-sub">Solusi implementasi menyeluruh mencakup daring &amp; luring, pengakuan sertifikat luar LMS, paket materi ASN siap pakai, dan opsi infrastruktur terkelola.</p>
+                            
+                            <div class="plan-sub-badge badge-pro">
+                                <span class="plan-badge-text">SOLUSI TERKELOLA PRIORITAS</span>
+                            </div>
+
+                            <ul class="plan-features-checklist">
+                                <li class="item-highlight-teal"><span>Free Cloud VPS SSD bertenaga tinggi selama 1 tahun (opsional jika belum mempunyai server)</span></li>
+                                <li class="item-highlight-teal"><span>Free Domain resmi instansi &amp; SSL Security selama 1 tahun (opsional)</span></li>
+                                <li><span>Dapat dipasang langsung di server lokal/Diskominfo jika instansi sudah siap dengan server sendiri</span></li>
+                                <li class="item-highlight-blue"><span>Bonus Lengkap: 9 Modul Kompetensi Dasar ASN Level 1 Siap Pakai</span></li>
+                                <li class="item-highlight-teal"><span><strong>Support IDP (Individual Development Plan) ASN Tahun 1 – 5:</strong> Panduan kurikulum pengembangan tahunan terstruktur agar ASN memiliki pedoman jelas &amp; tidak asal memilih pelatihan</span></li>
+                                <li class="item-highlight-teal"><span><strong>Smart Course Recommendation Engine:</strong> LMS otomatis mendeteksi &amp; merekomendasikan materi katalog yang cocok atau mirip dengan target IDP pegawai</span></li>
+                                <li class="item-highlight-blue"><span>Pengakuan &amp; Pencatatan Sertifikat Luar LMS ke Akumulasi 20 JP Tahunan Pegawai</span></li>
+                                <li class="item-highlight-blue"><span>Multi Metode: Daring (E-Course, Live Webinar) &amp; Luring (In-Class, Bimtek, Workshop)</span></li>
+                                <li><span>Profile Perjalanan Belajar Pegawai Terintegrasi (Data Permanen &amp; Riwayat Tahunan)</span></li>
+                                <li><span>Sistem Presensi Digital Berstempel Waktu (Daring &amp; Luring)</span></li>
+                                <li><span>Backup data harian otomatis &amp; monitoring performa server 24/7</span></li>
+                                <li><span>Full Kustomisasi: Disesuaikan dengan identitas resmi lembaga atau instansi hingga kop tanda tangan sertifikat</span></li>
+                                <li><span>Dukungan teknis prioritas selama 12 bulan penuh</span></li>
+                                <li><span>Pendampingan onboarding &amp; bimbingan teknis widyaiswara / instruktur</span></li>
+                            </ul>
+                        </div>
+
+                        <a href="#contact" class="btn-glow-primary" style="text-align:center; justify-content:center; padding:13px 24px; font-size:14px;">
+                            Konsultasi Paket Professional
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 10: CONTACT CTA ================= -->
+        <section id="contact" class="section-block">
+            <div class="container-fluid">
+                
+                <div class="contact-cta-section reveal-on-scroll">
+                    <div class="contact-author-logo">OneLearning Ecosystem</div>
+                    <div class="contact-org-sub">Dikembangkan oleh People Development Consulting</div>
+                    
+                    <h2 style="font-family:'Space Grotesk',sans-serif; font-size:clamp(26px, 3.2vw, 38px); font-weight:800; color:#ffffff; margin-bottom:16px;">
+                        Siap Memodernisasi Pengembangan Kompetensi ASN Daerah Anda?
+                    </h2>
+
+                    <p class="contact-pitch-lead">
+                        Jadwalkan sesi presentasi teknis online atau live demo langsung bersama tim konsultan kami untuk melihat secara detail bagaimana OneLearning dapat diaplikasikan di instansi Anda.
+                    </p>
+
+                    <div class="contact-details-grid">
+                        <div class="contact-item-box">
+                            <span class="contact-item-label">KONSULTASI WHATSAPP</span>
+                            <span class="contact-item-val" style="color:#5eead4;">+62 822-2999-3467</span>
+                        </div>
+                        <div class="contact-item-box">
+                            <span class="contact-item-label">EMAIL RESMI</span>
+                            <span class="contact-item-val"><a href="mailto:peodev.consulting@gmail.com" style="color:inherit; text-decoration:none;">peodev.consulting@gmail.com</a></span>
+                        </div>
+                        <div class="contact-item-box">
+                            <span class="contact-item-label">WAKTU OPERASIONAL</span>
+                            <span class="contact-item-val">Senin – Jumat (08.00 – 17.00 WIB)</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+                        <a href="https://wa.me/6282229993467?text=Halo%20People%20Development%20Consulting,%20saya%20ingin%20konsultasi%20terkait%20Proposal%20LMS%20OneLearning%20V3" target="_blank" class="btn-glow-primary" style="padding:14px 32px; font-size:15px;">
+                            💬 Hubungi via WhatsApp
+                        </a>
+                        <a href="#hero" class="btn-ghost" style="padding:14px 28px; font-size:15px;">
+                            Kembali ke Awal
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Footer Bar -->
+                <footer class="footer-site">
+                    <div class="footer-flex">
+                        <div class="footer-copy">
+                            &copy; 2026 <strong>OneLearning Ecosystem</strong> • Dikembangkan oleh <strong>People Development Consulting</strong>. Hak cipta dilindungi undang-undang.
+                        </div>
+                        <div class="footer-tags">
+                            <span>PROPOSAL TEKNIS V3</span>
+                            <span>•</span>
+                            <span>BKN COMPLIANT</span>
+                            <span>•</span>
+                            <span>SECURE ARCHITECTURE</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Quick Floating Action Tool -->
+    <div class="quick-float-panel">
+        <button class="quick-float-btn" onclick="toggleTheme()" title="Ganti Mode Terang / Gelap" style="border:none; cursor:pointer;">
+            <span class="theme-toggle-icon">🌙</span> <span class="theme-toggle-text">Mode</span>
+        </button>
+        <span style="color:rgba(255,255,255,0.2);">|</span>
+        <a href="#hero" class="quick-float-btn">
+            <span>↑</span> Top
+        </a>
+        <span style="color:rgba(255,255,255,0.2);">|</span>
+        <a href="#calculator" class="quick-float-btn">
+            <span>🧮</span> Kalkulator
+        </a>
+        <span style="color:rgba(255,255,255,0.2);">|</span>
+        <a href="#pricing" class="quick-float-btn">
+            <span>🏷️</span> Paket
+        </a>
+    </div>
+
+    <!-- MODAL LIGHTBOX DIALOG -->
+    <div class="modal-backdrop" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content-wrapper" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title-text" id="modalTitle">Detail Screenshot</span>
+                <button class="modal-close-btn" onclick="closeModalDirect()">✕</button>
+            </div>
+            <div class="modal-body-scroll">
+                <img src="" alt="Screenshot Full Preview" class="modal-img-full" id="modalImage">
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC (Theme Toggle, Parallax, Tabs, Calculator, Lightbox, Scroll Progress) -->
+    <script>
+        // 0. Theme Toggle System (Dark / Light Mode)
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('onelearning_theme');
+            if (saved) return saved;
+            return 'dark'; // Default sleek dark mode
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('onelearning_theme', theme);
+            
+            const icons = document.querySelectorAll('.theme-toggle-icon');
+            const texts = document.querySelectorAll('.theme-toggle-text');
+            
+            if (theme === 'light') {
+                icons.forEach(el => el.textContent = '☀️');
+                texts.forEach(el => {
+                    if (el.closest('.theme-toggle-btn')) el.textContent = 'Mode Terang';
+                    else el.textContent = 'Terang';
+                });
+            } else {
+                icons.forEach(el => el.textContent = '🌙');
+                texts.forEach(el => {
+                    if (el.closest('.theme-toggle-btn')) el.textContent = 'Mode Gelap';
+                    else el.textContent = 'Gelap';
+                });
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+        }
+
+        // Apply theme immediately
+        setTheme(getPreferredTheme());
+
+        // 1. Scroll Progress Bar & Active State
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressLine = document.getElementById('scrollProgress');
+            if (progressLine) progressLine.style.width = scrolled + '%';
+
+            // Parallax subtle background shift
+            const orb1 = document.getElementById('orb1');
+            const orb2 = document.getElementById('orb2');
+            const orb3 = document.getElementById('orb3');
+            if (orb1) orb1.style.transform = `translateY(${winScroll * 0.15}px)`;
+            if (orb2) orb2.style.transform = `translateY(${-winScroll * 0.12}px)`;
+            if (orb3) orb3.style.transform = `translateY(${winScroll * 0.08}px)`;
+        });
+
+        // 2. Scroll Reveal Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // 3. Tab Switcher Function
+        function switchTab(tabId) {
+            // Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+            // Panels
+            document.querySelectorAll('.tab-content-panel').forEach(panel => panel.classList.remove('active-panel'));
+
+            // Set active
+            const clickedBtn = event.currentTarget;
+            if (clickedBtn) clickedBtn.classList.add('active-tab');
+
+            const targetPanel = document.getElementById(tabId);
+            if (targetPanel) targetPanel.classList.add('active-panel');
+        }
+
+        // 4. Interactive ROI & JP Calculator
+        function updateCalculator(asnCount) {
+            const count = parseInt(asnCount);
+            
+            // Displays
+            document.getElementById('asnCountDisplay').innerText = count.toLocaleString('id-ID') + ' Orang';
+            
+            // Total JP = count * 20 JP
+            const totalJp = count * 20;
+            document.getElementById('totalJpDisplay').innerText = totalJp.toLocaleString('id-ID') + ' JP';
+
+            // Cert count approx 9 modules per person average 9 * count
+            const certCount = Math.round(count * 9);
+            document.getElementById('certCountDisplay').innerText = certCount.toLocaleString('id-ID') + ' Lembar';
+
+            // Cost savings approx Rp 500.000 per person per year in training logictics
+            const savingsMillion = Math.round((count * 500000) / 1000000);
+            document.getElementById('costSavingDisplay').innerText = 'Rp ' + savingsMillion.toLocaleString('id-ID') + ' Juta+';
+        }
+
+        // 5. Image Lightbox Modal
+        function openModal(imageSrc, title) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            if (modal && modalImg && modalTitle) {
+                modalImg.src = imageSrc;
+                modalTitle.innerText = title || 'Preview Screenshot';
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeModalDirect() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModalDirect();
+        });
+    
+        // Silky Smooth Animated Scroll with Navbar Offset & Dynamic Parallax
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (!targetId || targetId === '#' || targetId === '#!') return;
+                const targetEl = document.querySelector(targetId);
+                if (!targetEl) return;
+
+                e.preventDefault();
+
+                // 84px offset for fixed glass-navbar + breathing space
+                const navOffset = 84;
+                const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                const startTop = window.pageYOffset;
+                const distance = targetTop - startTop;
+
+                // Duration scaled to distance (650ms to 1050ms)
+                const duration = Math.min(1050, Math.max(650, Math.abs(distance) * 0.45));
+                let startTime = null;
+
+                // Quartic easeInOut for ultra-smooth fluid momentum
+                function easeInOutQuart(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t * t * t + b;
+                    t -= 2;
+                    return -c / 2 * (t * t * t * t - 2) + b;
+                }
+
+                function stepScroll(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const nextY = easeInOutQuart(timeElapsed, startTop, distance, duration);
+                    window.scrollTo(0, nextY);
+
+                    // Dynamic parallax shift during scroll animation
+                    const orb1 = document.getElementById('orb1');
+                    const orb2 = document.getElementById('orb2');
+                    const orb3 = document.getElementById('orb3');
+                    if (orb1) orb1.style.transform = `translateY(${nextY * 0.15}px)`;
+                    if (orb2) orb2.style.transform = `translateY(${-nextY * 0.12}px)`;
+                    if (orb3) orb3.style.transform = `translateY(${nextY * 0.08}px)`;
+
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(stepScroll);
+                    } else {
+                        window.scrollTo(0, targetTop);
+                        if (history.pushState) {
+                            history.pushState(null, null, targetId);
+                        }
+                    }
+                }
+
+                requestAnimationFrame(stepScroll);
+            });
+        });
+
+    </script>
+</body>
+</html>
